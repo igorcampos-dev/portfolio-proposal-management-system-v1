@@ -1,0 +1,8 @@
+
+services:
+
+  proposal-report-api:
+    build:
+      context: .
+    ports:
+      - "8070:8070"

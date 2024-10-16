@@ -1,0 +1,8 @@
+
+services:
+
+  proposal-processor-api:
+    build:
+      context: .
+    ports:
+      - "8090:8090"
