@@ -11,3 +11,18 @@ services:
     ports:
       - "8080:8080"
     command: ["start-dev"]
+
+  rabbitmq:
+    image: rabbitmq:4.0.2-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./rabbitmq/rabbitmq_definitions.json:/etc/rabbitmq/definitions.json:ro
+
+networks:
+  default:
+    driver: bridge
+
