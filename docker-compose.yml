@@ -22,6 +22,20 @@ services:
       - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
       - ./rabbitmq/rabbitmq_definitions.json:/etc/rabbitmq/definitions.json:ro
 
+  database:
+    image: postgres:13
+    container_name: database
+    environment:
+      POSTGRES_DB: pvd-solution
+      POSTGRES_PASSWORD: 22I!swq9s
+      POSTGRES_USER: sdiv_pred
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - api
+
 networks:
   default:
     driver: bridge
