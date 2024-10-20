@@ -1,4 +1,31 @@
 
+server:
+  port: ${SERVER_PORT:8080}
+
 spring:
+
   application:
     name: proposal-management-api
+
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        show_sql: ${SPRING_JPA_SHOW_SQL:true}
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: 1
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  datasource:
+    url: jdbc:postgresql://${DB_SERVER:localhost}:${DB_PORT:5432}/${POSTGRES_DB:proposals_db}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:password}
+    hikari:
+      schema: ${DB_SCHEMA:public}
+
+  flyway:
+    enabled: ${FLYWAY_ENABLED:true}
+    schemas: ${DB_SCHEMA:public}
+    baselineOnMigrate: true
