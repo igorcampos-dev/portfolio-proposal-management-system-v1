@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(schema = "public", name = "clients")
+@Table(name = "clients")
 public class ClientsEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "clientId", unique = true)
+    @Column(name = "client_id", unique = true, nullable = false)
     private String clientId;
 
     @Column(name = "document", nullable = false, unique = true)

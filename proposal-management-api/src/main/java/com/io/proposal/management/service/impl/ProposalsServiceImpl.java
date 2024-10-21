@@ -35,7 +35,7 @@ public class ProposalsServiceImpl implements ProposalsService {
     public ProposalUpdateResponse updateProposal(ProposalUpdateRequest dto) {
         ClientsEntity clientsEntity = clientsRepository.findByIdOrElseThrow(dto.userId());
         this.proposalsRepository.ifProposalNotExistsThenThrow(dto.proposalId());
-        this.proposalsRepository.ifStatusPendingThenThrow(dto.proposalId());
+        this.proposalsRepository.ifStatusNotPendingThenThrow(dto.proposalId());
         ProposalsEntity proposalEntity = new ProposalsEntity(clientsEntity, dto.purpose(), dto.amount());
         var response = this.proposalsRepository.save(proposalEntity);
         return ProposalsMapper.entityToUpdateResponse(response);
@@ -50,8 +50,8 @@ public class ProposalsServiceImpl implements ProposalsService {
 
     @Override
     public ProposalGetListResponse getProposal(int page, String id) {
-        this.proposalsRepository.ifProposalNotExistsThenThrow(id);
-        var response = this.proposalsRepository.findByPaginatedIdOrElseThrow(page, id);
+        ClientsEntity entity = this.clientsRepository.findByIdOrElseThrow(id);
+        var response = this.proposalsRepository.findByPaginatedNameOrElseThrow(page, entity.getName());
         return ProposalsMapper.entitieListToGetResponse(response);
     }
 

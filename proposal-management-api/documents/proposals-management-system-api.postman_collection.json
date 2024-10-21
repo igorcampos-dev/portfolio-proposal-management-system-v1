@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "c1bfa62c-0a8f-4bb8-a007-e0513fa99110",
+		"name": "proposals-management-system-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27290769"
+	},
+	"item": [
+		{
+			"name": "local",
+			"item": [
+				{
+					"name": "proposals-management",
+					"item": [
+						{
+							"name": "SAVE PROPOSAL",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"ac718f0c-13b5-4e61-8184-008fcb083e93\",\n    \"amount\": \"12.000\",\n    \"purpose\": \"Proposta de financiamento de dinheiro para adquirir notebook\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/proposals",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"proposals"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE PROPOSAL",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"ac718f0c-13b5-4e61-8184-008fcb083e93\",\n    \"proposalId\": \"32133f1c-5d4e-4791-bed2-427b51a164a2\",\n    \"amount\": \"13.000\",\n    \"purpose\": \"Proposta de financiamento de dinheiro para adquirir propriedade\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/proposals",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"proposals"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET PROPOSALS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/proposals/ac718f0c-13b5-4e61-8184-008fcb083e93?page=0",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"proposals",
+										"ac718f0c-13b5-4e61-8184-008fcb083e93"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE PROPOSAL",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/proposals/32133f1c-5d4e-4791-bed2-427b51a164a2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"proposals",
+										"32133f1c-5d4e-4791-bed2-427b51a164a2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

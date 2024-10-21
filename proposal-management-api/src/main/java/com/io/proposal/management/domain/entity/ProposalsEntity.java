@@ -15,18 +15,18 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(schema = "public", name = "proposals")
+@Table(name = "proposals")
 public class ProposalsEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "proposalId", unique = true)
+    @Column(name = "proposal_id", unique = true)
     private String proposalId;
 
-    @Column(name = "clientName", nullable = false)
+    @Column(name = "client_name", nullable = false)
     private String clientName;
 
-    @Column(name = "clientDocument", nullable = false)
+    @Column(name = "client_document", nullable = false)
     private String clientDocument;
 
     @Column(name = "amount", nullable = false, precision = 10, scale = 2)
@@ -35,7 +35,7 @@ public class ProposalsEntity {
     @Column(name = "purpose", nullable = false)
     private String purpose;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;
 
     @Column(name = "status")

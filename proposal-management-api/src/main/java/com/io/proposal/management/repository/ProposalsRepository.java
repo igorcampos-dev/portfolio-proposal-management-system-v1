@@ -12,14 +12,16 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProposalsRepository extends JpaRepository<ProposalsEntity, String> {
 
+    Page<ProposalsEntity> findByClientName(String clientName, Pageable pageable);
+
     default ProposalsEntity findByIdOrElseThrow(String id){
         return this.findById(id).orElseThrow( () -> new NullPointerException("Proposta não encontrada com esse id "));
     }
 
-    default void ifStatusPendingThenThrow(String id){
+    default void ifStatusNotPendingThenThrow(String id){
         var entity = this.findByIdOrElseThrow(id);
-        if (entity.getStatus() == Status.PENDING){
-            throw new ProposalPendingException("Proposta está pendente.");
+        if (entity.getStatus() != Status.PENDING){
+            throw new ProposalPendingException("Proposta não está mais pendente.");
         }
     }
 
@@ -29,10 +31,10 @@ public interface ProposalsRepository extends JpaRepository<ProposalsEntity, Stri
         }
     }
 
-    default Page<ProposalsEntity> findByPaginatedIdOrElseThrow(int page, String id){
+    default Page<ProposalsEntity> findByPaginatedNameOrElseThrow(int page, String name){
         Pageable pageable = PageRequest.of(page,6);
+        Page<ProposalsEntity> proposalsEntities = this.findByClientName(name, pageable);
 
-        Page<ProposalsEntity> proposalsEntities = this.findAll(pageable);
         if (proposalsEntities.isEmpty()){
             throw new NullPointerException("Não existe propostas no salvas.");
         }
