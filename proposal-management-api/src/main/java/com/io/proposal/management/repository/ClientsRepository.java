@@ -12,4 +12,6 @@ public interface ClientsRepository extends JpaRepository<ClientsEntity, String> 
     }
 
     boolean existsByDocument(String document);
+
+    ClientsEntity findByDocument(String document);
 }

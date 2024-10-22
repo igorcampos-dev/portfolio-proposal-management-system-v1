@@ -22,3 +22,10 @@ spring:
 
   flyway:
     enabled: ${FLYWAY_ENABLED:true}
+
+  rabbitmq:
+    username: ${RABBITMQ_USERNAME:user_queue}
+    password: ${RABBITMQ_PASSWORD:user_queue}
+    addresses: ${RABBITMQ_ADDRESSES:localhost:5672}
+    template:
+      queue: ${RABBITMQ_TEMPLATE_QUEUE:proposal_data_queue}

@@ -9,6 +9,7 @@ import com.io.proposal.management.domain.dto.response.ProposalUpdateResponse;
 import com.io.proposal.management.domain.entity.ClientsEntity;
 import com.io.proposal.management.domain.entity.ProposalsEntity;
 import com.io.proposal.management.mapper.ProposalsMapper;
+import com.io.proposal.management.queue.producer.ProposalQueueProducer;
 import com.io.proposal.management.repository.ClientsRepository;
 import com.io.proposal.management.repository.ProposalsRepository;
 import com.io.proposal.management.service.ProposalsService;
@@ -22,12 +23,14 @@ public class ProposalsServiceImpl implements ProposalsService {
 
     private final ClientsRepository clientsRepository;
     private final ProposalsRepository proposalsRepository;
+    private final ProposalQueueProducer producer;
 
     @Override
     public ProposalSaveResponse saveProposal(ProposalSaveRequest dto) {
         ClientsEntity clientsEntity = clientsRepository.findByIdOrElseThrow(dto.userId());
         ProposalsEntity proposalEntity = new ProposalsEntity(clientsEntity, dto.purpose(), dto.amount());
         var response = this.proposalsRepository.save(proposalEntity);
+        producer.publishMessage(response);
         return ProposalsMapper.entityToSaveResponse(response);
     }
 

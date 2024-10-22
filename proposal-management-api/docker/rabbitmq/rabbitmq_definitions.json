@@ -12,6 +12,15 @@
         "administrator"
       ],
       "limits": {}
+    },
+    {
+      "name": "user_queue",
+      "password_hash": "8HmohexjgAiakUx7MjCFKYT4gnUlXb+FcqPCZwdA5o1ydOxX",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": [
+        "None"
+      ],
+      "limits": {}
     }
   ],
   "vhosts": [
@@ -32,9 +41,24 @@
       "configure": ".*",
       "write": ".*",
       "read": ".*"
+    },
+    {
+      "user": "user_queue",
+      "vhost": "/",
+      "configure": "",
+      "write": ".*",
+      "read": ".*"
     }
   ],
-  "topic_permissions": [],
+  "topic_permissions": [
+    {
+      "user": "user_queue",
+      "vhost": "/",
+      "exchange": "",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
   "parameters": [],
   "global_parameters": [
     {
@@ -44,7 +68,6 @@
   ],
   "policies": [],
   "queues": [
-
     {
       "name": "proposal_data_queue",
       "vhost": "/",
@@ -54,7 +77,6 @@
         "x-queue-type": "classic"
       }
     }
-
   ],
   "exchanges": [],
   "bindings": []

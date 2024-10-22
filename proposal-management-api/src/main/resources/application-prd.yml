@@ -22,3 +22,8 @@ spring:
 
   flyway:
     enabled: ${FLYWAY_ENABLED}
+
+  rabbitmq:
+    addresses: ${RABBITMQ_ADDRESSES}
+    template:
+      queue: ${RABBITMQ_TEMPLATE_QUEUE}
