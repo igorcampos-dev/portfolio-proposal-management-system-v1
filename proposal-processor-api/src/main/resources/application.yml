@@ -19,8 +19,16 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
   datasource:
-    url: jdbc:postgresql://${DB_SERVER:localhost}:${DB_PORT:5432}/${POSTGRES_DB:proposals_db}
+    url: jdbc:postgresql://${DB_SERVER:localhost}:${DB_PORT:5432}/${POSTGRES_DB:proposals_management_db}
     username: ${POSTGRES_USER:postgres}
     password: ${POSTGRES_PASSWORD:password}
     hikari:
       schema: ${DB_SCHEMA:public}
+
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:user_queue}
+    password: ${RABBITMQ_PASSWORD:user_queue}
+    template:
+      queue: ${RABBITMQ_TEMPLATE_QUEUE:proposal_data_queue}

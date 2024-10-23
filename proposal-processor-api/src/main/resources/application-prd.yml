@@ -24,3 +24,11 @@ spring:
     password: ${POSTGRES_PASSWORD}
     hikari:
       schema: ${DB_SCHEMA}
+
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
+    template:
+      queue: ${RABBITMQ_TEMPLATE_QUEUE}
