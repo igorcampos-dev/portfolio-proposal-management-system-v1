@@ -24,6 +24,8 @@ spring:
     enabled: ${FLYWAY_ENABLED}
 
   rabbitmq:
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
     addresses: ${RABBITMQ_ADDRESSES}
     template:
       queue: ${RABBITMQ_TEMPLATE_QUEUE}
