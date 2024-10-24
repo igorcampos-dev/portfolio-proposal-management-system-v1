@@ -45,7 +45,7 @@
     {
       "user": "user_queue",
       "vhost": "/",
-      "configure": "",
+      "configure": ".*",
       "write": ".*",
       "read": ".*"
     }
@@ -69,15 +69,45 @@
   "policies": [],
   "queues": [
     {
-      "name": "proposal_data_queue",
+      "name": "dead_letter_queue",
       "vhost": "/",
       "durable": true,
       "auto_delete": false,
       "arguments": {
         "x-queue-type": "classic"
       }
+    },
+    {
+      "name": "proposal_data_queue",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "dead_letter_exchange",
+        "x-dead-letter-routing-key": "dead_letter_key",
+        "x-queue-type": "classic"
+      }
     }
   ],
-  "exchanges": [],
-  "bindings": []
+  "exchanges": [
+    {
+      "name": "dead_letter_exchange",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "dead_letter_exchange",
+      "vhost": "/",
+      "destination": "dead_letter_queue",
+      "destination_type": "queue",
+      "routing_key": "dead_letter_key",
+      "arguments": {}
+    }
+  ]
 }
