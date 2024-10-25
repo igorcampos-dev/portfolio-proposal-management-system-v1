@@ -14,8 +14,11 @@ import com.io.proposal.management.repository.ClientsRepository;
 import com.io.proposal.management.repository.ProposalsRepository;
 import com.io.proposal.management.service.ProposalsService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,23 +31,31 @@ public class ProposalsServiceImpl implements ProposalsService {
     private final ProposalsMapper mapper;
 
     @Override
+    @Transactional
     public ProposalSaveResponse saveProposal(@Valid ProposalSaveRequest dto) {
         ClientsEntity clientsEntity = clientsRepository.findByIdOrElseThrow(dto.userId());
+
         ProposalsEntity proposalEntity = new ProposalsEntity(clientsEntity, dto.purpose(), dto.amount());
-        ProposalsEntity savedEntity = proposalsRepository.save(proposalEntity);
-        producer.publishMessage(savedEntity);
-        return mapper.entityToSaveResponse(savedEntity);
+
+        this.proposalsRepository
+                .ifPurposeExistsByClientNameThenThrow(proposalEntity.getClientName(), proposalEntity.getPurpose());
+
+        proposalsRepository.save(proposalEntity);
+        producer.publishMessage(proposalEntity);
+        return mapper.entityToSaveResponse(proposalEntity);
     }
 
     @Override
+    @Transactional
     public ProposalUpdateResponse updateProposal(@Valid ProposalUpdateRequest dto) {
         ClientsEntity clientsEntity = clientsRepository.findByIdOrElseThrow(dto.userId());
+
         ensureProposalExists(dto.proposalId());
         ensureProposalStatusIsPending(dto.proposalId());
 
         ProposalsEntity proposalEntity = new ProposalsEntity(clientsEntity, dto.purpose(), dto.amount());
-        ProposalsEntity updatedEntity = proposalsRepository.save(proposalEntity);
-        return mapper.entityToUpdateResponse(updatedEntity);
+        proposalsRepository.save(proposalEntity);
+        return mapper.entityToUpdateResponse(proposalEntity);
     }
 
     @Override

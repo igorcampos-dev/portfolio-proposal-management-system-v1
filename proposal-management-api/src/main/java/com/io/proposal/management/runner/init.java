@@ -1,17 +1,17 @@
 package com.io.proposal.management.runner;
 
 import com.io.proposal.management.domain.entity.ClientsEntity;
+import com.io.proposal.management.domain.entity.fields.LoyaltyLevel;
 import com.io.proposal.management.repository.ClientsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-import java.util.UUID;
 
 @Slf4j
 @Component
-@Profile("default")
+@Profile({"default", "dev"})
 @RequiredArgsConstructor
 @SuppressWarnings("unused")
 public class init implements CommandLineRunner {
@@ -24,8 +24,8 @@ public class init implements CommandLineRunner {
         ClientsEntity entity = ClientsEntity.builder()
                 .name("default user")
                 .document("13326432054")
+                .level(LoyaltyLevel.PLATINUM)
                 .build();
-
 
         var entityDatabase = clientsRepository.findByDocument(entity.getDocument());
 

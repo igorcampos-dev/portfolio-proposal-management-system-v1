@@ -1,5 +1,6 @@
 package com.io.proposal.management.domain.entity;
 
+import com.io.proposal.management.domain.entity.fields.LoyaltyLevel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,5 +25,9 @@ public class ClientsEntity {
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "loyalty_level", nullable = false)
+    private LoyaltyLevel level;
 
 }
