@@ -26,8 +26,6 @@ public class RabbitMQConfig {
                            .withArgument("x-dead-letter-exchange", "dead_letter_exchange")
                            .withArgument("x-dead-letter-routing-key", "dead_letter_key")
                            .build();
-
-
     }
 
     @Bean

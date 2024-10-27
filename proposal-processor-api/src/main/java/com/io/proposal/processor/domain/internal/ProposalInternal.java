@@ -1,10 +1,11 @@
-package com.io.proposal.processor.domain.dto;
+package com.io.proposal.processor.domain.internal;
 
 import com.io.proposal.processor.domain.fields.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProposalDto {
+public class ProposalInternal {
 
     private String proposalId;
     private String clientName;

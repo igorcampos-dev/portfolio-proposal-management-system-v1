@@ -1,4 +1,4 @@
-package com.io.proposal.processor.domain.dto.fields;
+package com.io.proposal.processor.domain.fields;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

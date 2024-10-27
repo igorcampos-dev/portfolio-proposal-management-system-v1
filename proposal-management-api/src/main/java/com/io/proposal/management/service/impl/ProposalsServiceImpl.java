@@ -8,14 +8,13 @@ import com.io.proposal.management.domain.dto.response.ProposalSaveResponse;
 import com.io.proposal.management.domain.dto.response.ProposalUpdateResponse;
 import com.io.proposal.management.domain.entity.ClientsEntity;
 import com.io.proposal.management.domain.entity.ProposalsEntity;
+import com.io.proposal.management.domain.internal.ProposalCompleteInternal;
 import com.io.proposal.management.mapper.ProposalsMapper;
 import com.io.proposal.management.queue.producer.ProposalQueueProducer;
 import com.io.proposal.management.repository.ClientsRepository;
 import com.io.proposal.management.repository.ProposalsRepository;
 import com.io.proposal.management.service.ProposalsService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,15 +32,14 @@ public class ProposalsServiceImpl implements ProposalsService {
     @Override
     @Transactional
     public ProposalSaveResponse saveProposal(@Valid ProposalSaveRequest dto) {
-        ClientsEntity clientsEntity = clientsRepository.findByIdOrElseThrow(dto.userId());
+        ClientsEntity clientEntity = clientsRepository.findByIdOrElseThrow(dto.userId());
 
-        ProposalsEntity proposalEntity = new ProposalsEntity(clientsEntity, dto.purpose(), dto.amount());
-
+        ProposalsEntity proposalEntity = new ProposalsEntity(clientEntity, dto.purpose(), dto.amount());
         this.proposalsRepository
                 .ifPurposeExistsByClientNameThenThrow(proposalEntity.getClientName(), proposalEntity.getPurpose());
 
         proposalsRepository.save(proposalEntity);
-        producer.publishMessage(proposalEntity);
+        producer.publishMessage(new ProposalCompleteInternal(clientEntity, proposalEntity));
         return mapper.entityToSaveResponse(proposalEntity);
     }
 
