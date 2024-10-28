@@ -16,6 +16,7 @@ import java.io.IOException;
 @Slf4j
 @Component
 @RequiredArgsConstructor
+@SuppressWarnings("unused")
 public class ProposalsConsumer {
 
     private final ProposalsService proposalsService;

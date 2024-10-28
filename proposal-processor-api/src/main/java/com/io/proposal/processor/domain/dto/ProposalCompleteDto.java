@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProposalCompleteDto {
 
-    @JsonProperty(namespace = "clientsEntity")
+    @JsonProperty("clientsEntityProducer")
     private ClientsDto clientsDto;
 
-    @JsonProperty(namespace = "proposalsEntity")
+    @JsonProperty("proposalsEntityProducer")
     private ProposalDto proposalDto;
 }

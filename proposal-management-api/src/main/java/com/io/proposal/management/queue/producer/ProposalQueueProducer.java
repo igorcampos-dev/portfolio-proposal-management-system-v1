@@ -1,6 +1,5 @@
 package com.io.proposal.management.queue.producer;
 
-import com.io.proposal.management.domain.entity.ProposalsEntity;
 import com.io.proposal.management.domain.internal.ProposalCompleteInternal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

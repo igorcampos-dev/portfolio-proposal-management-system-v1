@@ -6,6 +6,7 @@ import com.io.proposal.processor.mapper.ProposalMapper;
 import org.springframework.stereotype.Component;
 
 @Component
+@SuppressWarnings("unused")
 public class ProposalMapperImpl implements ProposalMapper {
 
     @Override

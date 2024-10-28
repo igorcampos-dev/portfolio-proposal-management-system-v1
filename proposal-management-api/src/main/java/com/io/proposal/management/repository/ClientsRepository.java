@@ -11,7 +11,5 @@ public interface ClientsRepository extends JpaRepository<ClientsEntity, String> 
         return this.findById(id).orElseThrow( () -> new NullPointerException("Cliente não encontrado com esse id."));
     }
 
-    boolean existsByDocument(String document);
-
     ClientsEntity findByDocument(String document);
 }

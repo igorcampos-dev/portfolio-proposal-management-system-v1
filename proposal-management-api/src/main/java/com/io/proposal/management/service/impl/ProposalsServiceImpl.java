@@ -35,6 +35,7 @@ public class ProposalsServiceImpl implements ProposalsService {
         ClientsEntity clientEntity = clientsRepository.findByIdOrElseThrow(dto.userId());
 
         ProposalsEntity proposalEntity = new ProposalsEntity(clientEntity, dto.purpose(), dto.amount());
+
         this.proposalsRepository
                 .ifPurposeExistsByClientNameThenThrow(proposalEntity.getClientName(), proposalEntity.getPurpose());
 

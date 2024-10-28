@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProposalCompleteInternal {
 
-    private ClientsEntity clientsEntity;
-    private ProposalsEntity proposalsEntity;
+    private ClientsEntity clientsEntityProducer;
+    private ProposalsEntity proposalsEntityProducer;
 
 }
