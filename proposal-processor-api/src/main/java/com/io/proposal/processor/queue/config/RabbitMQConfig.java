@@ -17,7 +17,7 @@ public class RabbitMQConfig {
 
     private static final ObjectMapper mapper = new ObjectMapper();
 
-    @Value("${spring.rabbitmq.template.queue}")
+    @Value("${spring.rabbitmq.template.queues.consumers.proposal-management}")
     private String queue;
 
     @Bean

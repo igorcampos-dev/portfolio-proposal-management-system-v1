@@ -22,7 +22,7 @@ public class ProposalsConsumer {
     private final ProposalsService proposalsService;
     private final ProposalMapper mapper;
 
-    @RabbitListener(queues = "${spring.rabbitmq.template.queue}")
+    @RabbitListener(queues = "${spring.rabbitmq.template.queues.consumers.proposal-management}")
     public void listenEmailQueue(@Valid @Payload ProposalCompleteDto dto, Channel channel, Message message) throws IOException {
         try {
             log.info("Proposal received: {}", dto);

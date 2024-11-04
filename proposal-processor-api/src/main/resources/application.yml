@@ -13,4 +13,9 @@ spring:
     username: ${RABBITMQ_USERNAME:user_queue}
     password: ${RABBITMQ_PASSWORD:user_queue}
     template:
-      queue: ${RABBITMQ_TEMPLATE_QUEUE:proposal_data_queue}
+      queues:
+        producers:
+          proposal-management: ${RABBITMQ_PRODUCER_MANAGEMENT:proposal_update_queue}
+          proposal-report:  ${RABBITMQ_PRODUCER_REPORT:proposal_report_queue}
+        consumers:
+          proposal-management: ${RABBITMQ_CONSUMER_MANAGEMENT:proposal_data_queue}

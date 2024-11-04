@@ -69,6 +69,15 @@
   "policies": [],
   "queues": [
     {
+      "name": "proposal_report_queue",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-queue-type": "classic"
+      }
+    },
+    {
       "name": "dead_letter_queue",
       "vhost": "/",
       "durable": true,
@@ -85,6 +94,15 @@
       "arguments": {
         "x-dead-letter-exchange": "dead_letter_exchange",
         "x-dead-letter-routing-key": "dead_letter_key",
+        "x-queue-type": "classic"
+      }
+    },
+    {
+      "name": "proposal_update_queue",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
         "x-queue-type": "classic"
       }
     }
