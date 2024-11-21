@@ -1,0 +1,75 @@
+version: '3'
+
+services:
+
+  proposal-management-api:
+    build:
+      context: ./proposal-management-api
+    ports:
+      - 8080:8080
+    environment:
+      TZ: America/Sao_Paulo
+      SERVER_PORT: 8080
+      DB_JPA_SHOW_SQL: false
+      DB_DDL_AUTO: update
+      DB_SERVER: database
+      DB_PORT: 5432
+      DB_DATABASE: proposals_management_db
+      DB_USER: postgres
+      DB_PASSWORD: password
+      DB_SCHEMA: public
+      FLYWAY_ENABLED: true
+      RABBITMQ_USERNAME: user_queue
+      RABBITMQ_PASSWORD: user_queue
+      RABBITMQ_ADDRESSES: rabbitmq:5672
+      RABBITMQ_PRODUCER_PROPOSAL_QUEUE: proposal_data_queue
+      RABBITMQ_CONSUMER_UPDATE_PROPOSAL_QUEUE: proposal_update_queue
+      SPRING_PROFILES_ACTIVATE: prd
+
+  proposal-processor-api:
+    build:
+      context: ./proposal-processor-api
+    ports:
+      - "8090:8090"
+    environment:
+      TZ: America/Sao_Paulo
+      SPRING_PROFILES_ACTIVATE: prd
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: user_queue
+      RABBITMQ_PASSWORD: user_queue
+      RABBITMQ_PRODUCER_MANAGEMENT: proposal_update_queue
+      RABBITMQ_CONSUMER_MANAGEMENT: proposal_data_queue
+      SERVER_PORT: 8090
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0.1
+    container_name: keycloak-container
+    environment:
+      - KC_BOOTSTRAP_ADMIN_USERNAME=admin
+      - KC_BOOTSTRAP_ADMIN_PASSWORD=admin
+    ports:
+      - "8080:8080"
+    command: ["start-dev"]
+
+  rabbitmq:
+    image: rabbitmq:4.0.2-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./rabbitmq/rabbitmq_definitions.json:/etc/rabbitmq/definitions.json:ro
+
+  database:
+    image: postgres:13
+    container_name: database
+    environment:
+      POSTGRES_DB: proposals_management_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+
+

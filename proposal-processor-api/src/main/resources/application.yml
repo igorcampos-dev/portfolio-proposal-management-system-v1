@@ -1,0 +1,20 @@
+
+server:
+  port: 8090
+
+spring:
+
+  application:
+    name: proposal-processor-api
+
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:user_queue}
+    password: ${RABBITMQ_PASSWORD:user_queue}
+    template:
+      queues:
+        producers:
+          proposal-management: ${RABBITMQ_PRODUCER_MANAGEMENT:proposal_update_queue}
+        consumers:
+          proposal-management: ${RABBITMQ_CONSUMER_MANAGEMENT:proposal_data_queue}

@@ -1,0 +1,35 @@
+
+server:
+  port: ${SERVER_PORT}
+
+spring:
+
+  application:
+    name: proposal-management-api
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      show_sql: ${DB_JPA_SHOW_SQL}
+      ddl-auto: ${DB_DDL_AUTO}
+
+  datasource:
+    url: jdbc:postgresql://${DB_SERVER}:${DB_PORT}/${DB_DATABASE}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    hikari:
+      schema: ${DB_SCHEMA}
+
+  flyway:
+    enabled: ${FLYWAY_ENABLED}
+
+  rabbitmq:
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
+    addresses: ${RABBITMQ_ADDRESSES}
+    template:
+      queues:
+        producers:
+          proposal-queue: ${RABBITMQ_PRODUCER_PROPOSAL_QUEUE}
+        consumers:
+          proposal-update: ${RABBITMQ_CONSUMER_UPDATE_PROPOSAL_QUEUE}
