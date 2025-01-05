@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@SuppressWarnings("unused")
 @RequestMapping(path = ProposalsController.PATH)
 public class ProposalsController {
 
@@ -36,6 +35,11 @@ public class ProposalsController {
         var response = service.updateProposal(dto);
         log.info("Processo de atualização de uma proposta finalizado com sucesso.");
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping
+    public String get(){
+        return "ok";
     }
 
 }

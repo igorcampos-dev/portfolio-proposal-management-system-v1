@@ -5,27 +5,27 @@ services:
     build:
       context: .
     ports:
-      - "8090:8090"
+      - "8070:8070"
     environment:
       TZ: America/Sao_Paulo
       SPRING_PROFILES_ACTIVATE: prd
-      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_HOST: rabbitmq-dev
       RABBITMQ_PORT: 5672
       RABBITMQ_USERNAME: user_queue
       RABBITMQ_PASSWORD: user_queue
       RABBITMQ_PRODUCER_MANAGEMENT: proposal_update_queue
       RABBITMQ_CONSUMER_MANAGEMENT: proposal_data_queue
-      SERVER_PORT: 8090
+      SERVER_PORT: 8070
 
-  rabbitmq:
+  rabbitmq-dev:
     image: rabbitmq:4.0.2-management
     container_name: rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
     volumes:
-      - ./docker/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
-      - ./docker/rabbitmq/rabbitmq_definitions.json:/etc/rabbitmq/definitions.json:ro
+      - ./docker/proposal-management-rabbitmq-v1/rabbitmq/dev/rabbitmq-dev.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./docker/proposal-management-rabbitmq-v1/rabbitmq/dev/rabbitmq-definitions-dev.json:/etc/rabbitmq/definitions.json:ro
 
 networks:
   default:

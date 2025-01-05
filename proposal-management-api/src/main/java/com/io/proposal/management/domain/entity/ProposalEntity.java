@@ -4,7 +4,6 @@ import com.io.proposal.management.domain.dto.request.ProposalUpdateRequest;
 import com.io.proposal.management.domain.entity.fields.Status;
 import com.io.proposal.management.domain.internal.ProposalUpdateInternal;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package com.io.proposal.management.queue.config;
+package com.io.proposal.management.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

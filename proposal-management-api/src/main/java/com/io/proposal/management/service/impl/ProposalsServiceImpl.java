@@ -6,7 +6,7 @@ import com.io.proposal.management.domain.dto.response.ProposalSaveResponse;
 import com.io.proposal.management.domain.dto.response.ProposalUpdateResponse;
 import com.io.proposal.management.domain.entity.ProposalEntity;
 import com.io.proposal.management.domain.internal.ProposalUpdateInternal;
-import com.io.proposal.management.mapper.ProposalsMapper;
+import com.io.proposal.management.domain.mapper.ProposalsMapper;
 import com.io.proposal.management.queue.producer.ProposalQueueProducer;
 import com.io.proposal.management.repository.ProposalRepository;
 import com.io.proposal.management.service.ProposalsService;

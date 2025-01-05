@@ -13,24 +13,20 @@ Esse projeto trabalha a manipulação de propostas. Para cada cadastro de propos
    Para rodar o projeto completo:
 
    ```bash
-   docker compose up
+   sh ./docker/init.sh
+   ```
+3. **Execute finalmente:**
+
+   ```bash
+   docker compose up proposal-management-api-dev
    ```
 
 ### Como Executar Localmente
 
-Se você deseja rodar o banco de dados e o RabbitMQ localmente, sem a aplicação principal, execute os seguintes comandos:
-
-1. Para iniciar apenas o banco de dados:
+1. **Para executar local, use:**
 
     ```bash
-    docker compose up database
+    sh ./docker/init.sh
     ```
 
-2. Para iniciar o RabbitMQ:
-
-    ```bash
-    docker compose up rabbitmq
-    ```
-
-Com isso, o banco de dados e o RabbitMQ estarão rodando em seus respectivos containers e você poderá executar a aplicação em sua máquina localmente, se necessário.
-
+2. **Finalmente, execute o projeto na sua IDE preferida.**

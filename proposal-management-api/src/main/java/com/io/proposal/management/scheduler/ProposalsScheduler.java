@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Slf4j
 @Component
 @RequiredArgsConstructor
+@SuppressWarnings("unused")
 public class ProposalsScheduler {
 
     private final ProposalRepository repository;
@@ -27,12 +28,18 @@ public class ProposalsScheduler {
 
     @Transactional
     private void execute(ProposalEntity entity){
-        this.alterProposalStatus(entity);
-        this.producer.publishMessage(entity);
+        try {
+            log.info("Iniciando o processamento de uma proposta: {}", entity.getId());
+            this.alterProposalStatus(Status.PROCESSING, entity);
+            this.producer.publishMessage(entity);
+        } catch (Exception e){
+            log.error("Houve um erro ao processar a proposta: {}, causa: {}", entity.getId(), e.getMessage());
+            this.alterProposalStatus(Status.ERROR, entity);
+        }
     }
 
-    private void alterProposalStatus(ProposalEntity entity){
-        entity.setStatus(Status.PROCESSING);
+    private void alterProposalStatus(Status status, ProposalEntity entity){
+        entity.setStatus(status);
         this.repository.save(entity);
     }
 

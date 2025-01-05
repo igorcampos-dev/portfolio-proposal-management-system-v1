@@ -1,7 +1,6 @@
-package com.io.proposal.management.mapper;
+package com.io.proposal.management.domain.mapper;
 
 import com.io.proposal.management.domain.dto.request.ProposalSaveRequest;
-import com.io.proposal.management.domain.dto.request.ProposalUpdateRequest;
 import com.io.proposal.management.domain.dto.response.ProposalSaveResponse;
 import com.io.proposal.management.domain.dto.response.ProposalUpdateResponse;
 import com.io.proposal.management.domain.entity.ProposalEntity;
@@ -16,9 +15,6 @@ public abstract class ProposalsMapper {
     @Mapping(target = "analysisDescription", constant = "Pendente a análise.")
     @Mapping(target = "updatedAt", expression = "java(dto.createdAt().plusMinutes(30))")
     public abstract ProposalEntity toEntity(ProposalSaveRequest dto);
-
-    @Mapping(target = ".", source = ".")
-    public abstract ProposalEntity toEntity(ProposalUpdateRequest dto);
 
     @Mapping(target = ".", source = ".")
     public abstract ProposalSaveResponse toResponseSave(ProposalEntity entity);

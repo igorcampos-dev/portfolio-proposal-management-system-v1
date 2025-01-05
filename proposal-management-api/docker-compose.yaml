@@ -1,0 +1,149 @@
+services:
+
+  # App
+  proposal-management-api-dev:
+    build:
+      context: .
+    ports:
+      - "80"
+    environment:
+      TZ: America/Sao_Paulo
+      SERVER_PORT: 80
+      DB_JPA_SHOW_SQL: false
+      DB_DDL_AUTO: update
+      DB_SERVER: database-dev
+      DB_PORT: 5432
+      DB_DATABASE: proposals_management_db_dev
+      DB_USER: postgres
+      DB_PASSWORD: password
+      DB_SCHEMA: public
+      FLYWAY_ENABLED: true
+      RABBITMQ_USERNAME: user_queue
+      RABBITMQ_PASSWORD: user_queue
+      RABBITMQ_ADDRESSES: rabbitmq-dev:5672
+      RABBITMQ_PRODUCER_PROPOSAL_QUEUE: proposal_data_queue
+      RABBITMQ_CONSUMER_UPDATE_PROPOSAL_QUEUE: proposal_update_queue
+      SPRING_PROFILES_ACTIVE: prd
+      JWT_ISSUER_URI: http://keycloak-dev:8080/realms/proposal-management
+    networks:
+      - project_net
+
+  # Keycloak
+
+  keycloak-dev:
+    image: quay.io/keycloak/keycloak:26.0.1
+    container_name: keycloak-dev
+    ports:
+      - "8080:8080"
+    command:
+      - "start-dev"
+      - "--import-realm"
+    volumes:
+      - ./docker/proposal-management-keycloak-v1/keycloak/dev/keycloak-dev.conf:/opt/keycloak/conf/keycloak.conf
+    networks:
+      - project_net
+
+
+  keycloak-database-dev:
+    image: postgres:13
+    container_name: keycloak-database-dev
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: keycloak_db_dev
+    ports:
+      - "5433:5432"
+    networks:
+      - project_net
+    volumes:
+      - ./docker/proposal-management-keycloak-v1/keycloak/dev/backup-dev.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # Db application
+
+  database-dev:
+    image: postgres:13
+    container_name: database-dev
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: proposals_management_db_dev
+    ports:
+      - "5432:5432"
+    networks:
+      - project_net
+
+  # Queue
+
+  rabbitmq-dev:
+    image: rabbitmq:4.0.2-management
+    container_name: rabbitmq-dev
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - ./docker/proposal-management-rabbitmq-v1/rabbitmq/dev/rabbitmq-dev.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./docker/proposal-management-rabbitmq-v1/rabbitmq/dev/rabbitmq-definitions-dev.json:/etc/rabbitmq/definitions.json:ro
+    networks:
+      - project_net
+
+  # Kong
+
+  kong-database-dev:
+    image: postgres:13
+    container_name: kong-database-dev
+    environment:
+      POSTGRES_USER: kong
+      POSTGRES_DB: kong
+      POSTGRES_PASSWORD: kongpass
+    networks:
+      - project_net
+
+  kong-gateway-dev:
+    command: /bin/sh -c "kong migrations bootstrap && kong start"
+    image: kong/kong-gateway:3.8.1.0
+    container_name: kong-gateway
+    depends_on:
+      - kong-database-dev
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: kong-database-dev
+      KONG_PG_USER: kong
+      KONG_PG_PASSWORD: kongpass
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_LISTEN: 0.0.0.0:8001
+      KONG_ADMIN_GUI_URL: http://localhost:8002
+    ports:
+      - "8000:8000"
+      - "8443:8443"
+      - "8001:8001"
+      - "8444:8444"
+      - "8002:8002"
+      - "8445:8445"
+      - "8003:8003"
+      - "8004:8004"
+    networks:
+      - project_net
+
+  deck:
+    depends_on:
+      - kong-gateway-dev
+    image: kong/deck
+    volumes:
+      - ./docker/proposal-management-kong-v1/dev/config:/deck
+    stdin_open: true
+    command: --kong-addr http://kong-gateway:8001 --headers kong-admin-token:KONG_ADMIN_TOKEN gateway sync /deck/
+    networks:
+      - project_net
+
+
+networks:
+  default:
+    driver: bridge
+  project_net:
+    driver: bridge
+    name: project_net
+
+

@@ -7,6 +7,12 @@ spring:
   application:
     name: proposal-management-api
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${JWT_ISSUER_URI}
+
   jpa:
     open-in-view: false
     hibernate:
