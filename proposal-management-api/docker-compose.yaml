@@ -1,13 +1,12 @@
 services:
 
   # App
-  proposal-management-api-dev:
+  proposal-management-api:
     build:
       context: .
     ports:
-      - "80"
+      - "80:80"
     environment:
-      TZ: America/Sao_Paulo
       SERVER_PORT: 80
       DB_JPA_SHOW_SQL: false
       DB_DDL_AUTO: update
@@ -42,7 +41,6 @@ services:
       - ./docker/proposal-management-keycloak-v1/keycloak/dev/keycloak-dev.conf:/opt/keycloak/conf/keycloak.conf
     networks:
       - project_net
-
 
   keycloak-database-dev:
     image: postgres:13

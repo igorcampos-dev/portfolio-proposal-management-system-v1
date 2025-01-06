@@ -18,7 +18,7 @@ Esse projeto trabalha a manipulação de propostas. Para cada cadastro de propos
 3. **Execute finalmente:**
 
    ```bash
-   docker compose up proposal-management-api-dev
+   docker compose up proposal-management-api
    ```
 
 ### Como Executar Localmente

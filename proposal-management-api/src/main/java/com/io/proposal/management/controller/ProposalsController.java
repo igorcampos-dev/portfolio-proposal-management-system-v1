@@ -37,9 +37,4 @@ public class ProposalsController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @GetMapping
-    public String get(){
-        return "ok";
-    }
-
 }

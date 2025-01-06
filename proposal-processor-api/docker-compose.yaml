@@ -7,7 +7,6 @@ services:
     ports:
       - "8070:8070"
     environment:
-      TZ: America/Sao_Paulo
       SPRING_PROFILES_ACTIVATE: prd
       RABBITMQ_HOST: rabbitmq-dev
       RABBITMQ_PORT: 5672

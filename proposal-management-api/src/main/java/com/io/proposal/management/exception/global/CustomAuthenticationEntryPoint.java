@@ -27,7 +27,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         Map<String, Object> errorDetails = new HashMap<>();
         errorDetails.put("status", HttpStatus.UNAUTHORIZED.value());
         errorDetails.put("error", "Unauthorized");
-        errorDetails.put("message", "Token inválido ou não fornecido.");
+        errorDetails.put("message", "Token inválido ou não fornecido, causa: " + authException.getMessage());
         errorDetails.put("path", request.getRequestURI());
 
         response.getWriter().write(objectMapper.writeValueAsString(errorDetails));
