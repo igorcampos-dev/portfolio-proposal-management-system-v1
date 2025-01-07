@@ -1,7 +1,10 @@
 package com.io.proposal.management.config;
 
+import com.io.proposal.management.config.properties.KeycloakProperties;
 import com.io.proposal.management.exception.global.CustomAuthenticationEntryPoint;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.HttpMethod;
@@ -12,7 +15,11 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.core.OAuth2Error;
+import org.springframework.security.oauth2.core.OAuth2TokenValidatorResult;
 import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.stereotype.Component;
@@ -22,7 +29,10 @@ import java.util.Map;
 
 @Component
 @SuppressWarnings("unused")
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final KeycloakProperties properties;
 
     interface AuthoritiesConverter extends Converter<Map<String, Object>, Collection<GrantedAuthority>> {}
 
@@ -58,6 +68,23 @@ public class SecurityConfig {
     }
 
     @Bean
+    public JwtDecoder jwtDecoder() {
+        NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withJwkSetUri(properties.getJwkUri()).build();
+
+        jwtDecoder.setJwtValidator(jwt -> {
+            String issuer = jwt.getIssuer().toString();
+            if (!properties.isValidIssuerUri(issuer)) {
+                return OAuth2TokenValidatorResult.failure(
+                        new OAuth2Error("invalid_token", "Invalid issuer: " + issuer, null)
+                );
+            }
+            return OAuth2TokenValidatorResult.success();
+        });
+
+        return jwtDecoder;
+    }
+
+    @Bean
     @SneakyThrows(Exception.class)
     SecurityFilterChain resourceServerSecurityFilterChain(
             HttpSecurity http,
@@ -67,8 +94,9 @@ public class SecurityConfig {
 
         http.csrf(AbstractHttpConfigurer::disable);
         http.oauth2ResourceServer(resourceServer ->
-                resourceServer.jwt(jwtDecoder -> jwtDecoder.jwtAuthenticationConverter(authenticationConverter))
-                              .authenticationEntryPoint(authenticationEntryPoint)
+                resourceServer.jwt(jwtDecoder ->
+                                jwtDecoder.jwtAuthenticationConverter(authenticationConverter))
+                                          .authenticationEntryPoint(authenticationEntryPoint)
         );
         http.sessionManagement(sessions -> sessions.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(requests -> {

@@ -24,6 +24,7 @@ services:
       RABBITMQ_CONSUMER_UPDATE_PROPOSAL_QUEUE: proposal_update_queue
       SPRING_PROFILES_ACTIVE: prd
       JWT_ISSUER_URI: http://keycloak-dev:8080/realms/proposal-management
+      JWT_JWK_URI: http://keycloak-dev:8080/realms/proposal-management/protocol/openid-connect/certs
     networks:
       - project_net
 
