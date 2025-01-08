@@ -7,70 +7,282 @@
 	},
 	"item": [
 		{
-			"name": "local and docker",
+			"name": "Local",
 			"item": [
 				{
-					"name": "proposals-management",
-					"item": [
-						{
-							"name": "SAVE PROPOSAL",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"description\": \"Proposal for the acquisition of IT equipment\",\n  \"value\": 50299.00,\n  \"supplierId\": \"SUP001\",\n  \"supplierName\": \"FORNECEDOR SP/AUC\",\n  \"clientId\": \"CLI001\",\n  \"clientName\": \"COMPANY SP/AP\",\n  \"createdAt\": \"2024-11-20T18:12:00\"\n  }\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+					"name": "Generate Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
 								},
-								"url": {
-									"raw": "http://localhost:8080/v1/proposals",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"v1",
-										"proposals"
-									]
+								{
+									"key": "client_id",
+									"value": "proposal-management-client-private",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "user-default",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password-default",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "v4ctHK7d8Y6HZ6wmcrMuKtmp4ItWOH0m",
+									"type": "text"
 								}
-							},
-							"response": []
+							]
 						},
-						{
-							"name": "UPDATE PROPOSAL",
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"id\": \"25e6411d-9451-463e-b642-aa83074bd8a5\",  \n  \"description\": \"Proposal for the acquisition of IT equipment\",\n  \"value\": 75000.10,\n  \"supplierId\": \"SUP001\",\n  \"supplierName\": \"ABC Supplier\",\n  \"clientId\": \"CLI001\",\n  \"clientName\": \"XYZ Company\"\n  }\n"
-								},
-								"url": {
-									"raw": "http://localhost:8080/v1/proposals",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"v1",
-										"proposals"
-									]
-								}
-							},
-							"response": []
+						"url": {
+							"raw": "http://localhost:8080/realms/proposal-management/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"proposal-management",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "Save Proposal",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJDYmplNV9CcURacUd1NEduNE1lZ3doVnFrdTllaUkyY2lwOV94YWdhRjhFIn0.eyJleHAiOjE3MzYxMTcxMTcsImlhdCI6MTczNjExNjgxNywianRpIjoiMjI1YThmNWEtOGJmZC00MDU0LWFlNjAtZGY5ZWU5NTkwYzExIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9wcm9wb3NhbC1tYW5hZ2VtZW50Iiwic3ViIjoiODFlMWFiYzYtNzRhNC00NWU2LWI2OTAtMDUwNGIxZWYwNzFkIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoicHJvcG9zYWwtbWFuYWdlbWVudC1jbGllbnQtcHJpdmF0ZSIsInNpZCI6ImRiZjc0YTAzLWE4ZjgtNGFmYy05NWJjLTAyMDI4ZDU2YTc4NiIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiLyoiXSwicmVzb3VyY2VfYWNjZXNzIjp7InByb3Bvc2FsLW1hbmFnZW1lbnQtY2xpZW50LXByaXZhdGUiOnsicm9sZXMiOlsiQkFTSUMiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6InVzZXIgZGVmYXVsdCIsInByZWZlcnJlZF91c2VybmFtZSI6InVzZXItZGVmYXVsdCIsImdpdmVuX25hbWUiOiJ1c2VyIiwiZmFtaWx5X25hbWUiOiJkZWZhdWx0IiwiZW1haWwiOiJ1c2VyZGVmYXVsdEBnbWFpbC5jb20ifQ.eDA5dAwUnNJsna6ygegovrj79-nli_JCsbiBtfc8zWfxbUH37oQ322EzW1IbNNUyCz3C371MuLvJIbXIFni8vbU455vovr_KfljtxQtzXnIQRLum4y6610wCaWsdpZwgjfilo0jZEXyLUWUnEbwKqW-Ll_yEkPcJ6wKS8CbQjQ9aCUvqM_357I46LHPuX8dHLutC14l7TzBf0xMySzWkNfLCDOnPD20XjdLNze7XNBCbs4HCKUIyBbIrdjFCwxHFcQnId-TiDrlKx4h7UMguckya9XqgvRNzSQnY-byrgQ9M9LA6uSgE_xUK__kS6pZ4d-YEYiEXU_JrtXeGwZDB8Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"Proposal for the acquisition of IT equipment\",\n  \"value\": 50299.00,\n  \"supplierId\": \"SUP001\",\n  \"supplierName\": \"FORNECEDOR SP/AUC\",\n  \"clientId\": \"CLI001\",\n  \"clientName\": \"COMPANY SP/AP\",\n  \"createdAt\": \"2024-11-20T18:12:00\"\n  }\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/v1/proposals",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"proposals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Proposal",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJDYmplNV9CcURacUd1NEduNE1lZ3doVnFrdTllaUkyY2lwOV94YWdhRjhFIn0.eyJleHAiOjE3MzYxMTcxMTcsImlhdCI6MTczNjExNjgxNywianRpIjoiMjI1YThmNWEtOGJmZC00MDU0LWFlNjAtZGY5ZWU5NTkwYzExIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9wcm9wb3NhbC1tYW5hZ2VtZW50Iiwic3ViIjoiODFlMWFiYzYtNzRhNC00NWU2LWI2OTAtMDUwNGIxZWYwNzFkIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoicHJvcG9zYWwtbWFuYWdlbWVudC1jbGllbnQtcHJpdmF0ZSIsInNpZCI6ImRiZjc0YTAzLWE4ZjgtNGFmYy05NWJjLTAyMDI4ZDU2YTc4NiIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiLyoiXSwicmVzb3VyY2VfYWNjZXNzIjp7InByb3Bvc2FsLW1hbmFnZW1lbnQtY2xpZW50LXByaXZhdGUiOnsicm9sZXMiOlsiQkFTSUMiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6InVzZXIgZGVmYXVsdCIsInByZWZlcnJlZF91c2VybmFtZSI6InVzZXItZGVmYXVsdCIsImdpdmVuX25hbWUiOiJ1c2VyIiwiZmFtaWx5X25hbWUiOiJkZWZhdWx0IiwiZW1haWwiOiJ1c2VyZGVmYXVsdEBnbWFpbC5jb20ifQ.eDA5dAwUnNJsna6ygegovrj79-nli_JCsbiBtfc8zWfxbUH37oQ322EzW1IbNNUyCz3C371MuLvJIbXIFni8vbU455vovr_KfljtxQtzXnIQRLum4y6610wCaWsdpZwgjfilo0jZEXyLUWUnEbwKqW-Ll_yEkPcJ6wKS8CbQjQ9aCUvqM_357I46LHPuX8dHLutC14l7TzBf0xMySzWkNfLCDOnPD20XjdLNze7XNBCbs4HCKUIyBbIrdjFCwxHFcQnId-TiDrlKx4h7UMguckya9XqgvRNzSQnY-byrgQ9M9LA6uSgE_xUK__kS6pZ4d-YEYiEXU_JrtXeGwZDB8Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"68e2b13c-7b6b-4e97-853a-0abb1f010e51\",  \n  \"description\": \"Proposal for the acquisition of IT equipment\",\n  \"value\": 75000.10,\n  \"supplierId\": \"SUP001\",\n  \"supplierName\": \"ABC Supplier\",\n  \"clientId\": \"CLI001\",\n  \"clientName\": \"XYZ Company\"\n  }\n"
+						},
+						"url": {
+							"raw": "http://localhost:8090/v1/proposals",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"proposals"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Docker",
+			"item": [
+				{
+					"name": "Generate Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "proposal-management-client-private",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "user-default",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password-default",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "v4ctHK7d8Y6HZ6wmcrMuKtmp4ItWOH0m",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/proposal-management/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"proposal-management",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save Proposal",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJDYmplNV9CcURacUd1NEduNE1lZ3doVnFrdTllaUkyY2lwOV94YWdhRjhFIn0.eyJleHAiOjE3MzYzMDQwMjEsImlhdCI6MTczNjMwMzcyMSwianRpIjoiMjljMGMxZDgtMTkxNC00Njc0LWFlODYtYjJmNTMzZDAxMWEzIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9wcm9wb3NhbC1tYW5hZ2VtZW50Iiwic3ViIjoiODFlMWFiYzYtNzRhNC00NWU2LWI2OTAtMDUwNGIxZWYwNzFkIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoicHJvcG9zYWwtbWFuYWdlbWVudC1jbGllbnQtcHJpdmF0ZSIsInNpZCI6IjlhNDFjNjcyLWQ1MzctNDcxYy04YmY3LTY1NGMwZWEzN2M1MyIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiLyoiXSwicmVzb3VyY2VfYWNjZXNzIjp7InByb3Bvc2FsLW1hbmFnZW1lbnQtY2xpZW50LXByaXZhdGUiOnsicm9sZXMiOlsiQkFTSUMiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6InVzZXIgZGVmYXVsdCIsInByZWZlcnJlZF91c2VybmFtZSI6InVzZXItZGVmYXVsdCIsImdpdmVuX25hbWUiOiJ1c2VyIiwiZmFtaWx5X25hbWUiOiJkZWZhdWx0IiwiZW1haWwiOiJ1c2VyZGVmYXVsdEBnbWFpbC5jb20ifQ.ajXHlXu5zLNDReIF0PStQrF88WmMMGzZVSJhNYohkyjbz4LpdkfCsQdIFdXfsSbvWNZR8RIaWrgztcrLGrY8REcmLqZ3WeTAadquGK3-YczFH8rOZdIbYqoEDbkJ6BL-57-VBHFxk0ZQF7XiMwO0WewCqq9j5ckiY9nIvZLngWIeJGBFaqJ75dOlqcXZn1v9uRsFIUySjdQjbHIquLyN6604JqOZzYHLjYWoO5vlfQcptSSdKocpOo2Dcd3MbahE02EJqRzxLQNcYbu3UDhvsz66pXJi0qatUxPlVR7kWPv7OxFaWCPS7njH1MgpTZ3sblJVs0hN-P8YjnbQTE2zgQ"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"Proposal for the acquisition of IT equipment\",\n  \"value\": 50299.00,\n  \"supplierId\": \"SUP001\",\n  \"supplierName\": \"FORNECEDOR SP/AUC\",\n  \"clientId\": \"CLI001\",\n  \"clientName\": \"COMPANY SP/AP\",\n  \"createdAt\": \"2025-01-07T23:48:00\"\n  }\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/v1/proposals",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"v1",
+								"proposals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Proposal",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJDYmplNV9CcURacUd1NEduNE1lZ3doVnFrdTllaUkyY2lwOV94YWdhRjhFIn0.eyJleHAiOjE3MzYxMTcxMTcsImlhdCI6MTczNjExNjgxNywianRpIjoiMjI1YThmNWEtOGJmZC00MDU0LWFlNjAtZGY5ZWU5NTkwYzExIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9wcm9wb3NhbC1tYW5hZ2VtZW50Iiwic3ViIjoiODFlMWFiYzYtNzRhNC00NWU2LWI2OTAtMDUwNGIxZWYwNzFkIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoicHJvcG9zYWwtbWFuYWdlbWVudC1jbGllbnQtcHJpdmF0ZSIsInNpZCI6ImRiZjc0YTAzLWE4ZjgtNGFmYy05NWJjLTAyMDI4ZDU2YTc4NiIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiLyoiXSwicmVzb3VyY2VfYWNjZXNzIjp7InByb3Bvc2FsLW1hbmFnZW1lbnQtY2xpZW50LXByaXZhdGUiOnsicm9sZXMiOlsiQkFTSUMiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6InVzZXIgZGVmYXVsdCIsInByZWZlcnJlZF91c2VybmFtZSI6InVzZXItZGVmYXVsdCIsImdpdmVuX25hbWUiOiJ1c2VyIiwiZmFtaWx5X25hbWUiOiJkZWZhdWx0IiwiZW1haWwiOiJ1c2VyZGVmYXVsdEBnbWFpbC5jb20ifQ.eDA5dAwUnNJsna6ygegovrj79-nli_JCsbiBtfc8zWfxbUH37oQ322EzW1IbNNUyCz3C371MuLvJIbXIFni8vbU455vovr_KfljtxQtzXnIQRLum4y6610wCaWsdpZwgjfilo0jZEXyLUWUnEbwKqW-Ll_yEkPcJ6wKS8CbQjQ9aCUvqM_357I46LHPuX8dHLutC14l7TzBf0xMySzWkNfLCDOnPD20XjdLNze7XNBCbs4HCKUIyBbIrdjFCwxHFcQnId-TiDrlKx4h7UMguckya9XqgvRNzSQnY-byrgQ9M9LA6uSgE_xUK__kS6pZ4d-YEYiEXU_JrtXeGwZDB8Q"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"40b1c19a-5476-40d0-9c18-879117bd5b55\",  \n  \"description\": \"Proposal for the acquisition of IT equipment\",\n  \"value\": 75000.10,\n  \"supplierId\": \"SUP001\",\n  \"supplierName\": \"ABC Supplier\",\n  \"clientId\": \"CLI001\",\n  \"clientName\": \"XYZ Company\"\n  }\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/v1/proposals",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"v1",
+								"proposals"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
