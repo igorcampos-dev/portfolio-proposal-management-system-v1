@@ -25,7 +25,7 @@ public class CustomExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Error> handleIllegalArgumentException(IllegalArgumentException e, HttpServletRequest s) {
         log.error("method=IllegalArgumentException | message: {}", e.getMessage());
-        return Error.response(e.getMessage(), HttpStatus.NOT_FOUND, s.getRequestURI());
+        return Error.response(e.getMessage(), HttpStatus.BAD_REQUEST, s.getRequestURI());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

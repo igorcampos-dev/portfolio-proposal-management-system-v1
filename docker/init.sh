@@ -1,7 +1,7 @@
 cd proposal-management-api
 
 sh docker/init.sh
-docker compose up -d --build proposal-management-api-dev
+docker compose up -d --build proposal-management-api
 
 cd ..
 
