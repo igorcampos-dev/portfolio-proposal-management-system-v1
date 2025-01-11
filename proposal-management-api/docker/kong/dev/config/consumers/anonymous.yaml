@@ -1,0 +1,17 @@
+_format_version: "3.0"
+_workspace: default
+consumers:
+- plugins:
+  - config:
+      message: Authentication required
+      status_code: 401
+      trigger: null
+      body: null
+      content_type: null
+      echo: false
+    enabled: true
+    name: request-termination
+    protocols:
+    - http
+   
+  username: anonymous

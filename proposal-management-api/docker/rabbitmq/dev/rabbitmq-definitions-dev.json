@@ -1,0 +1,131 @@
+{
+    "rabbit_version": "4.0.2",
+    "rabbitmq_version": "4.0.2",
+    "product_name": "RabbitMQ",
+    "product_version": "4.0.2",
+    "users": [
+      {
+        "name": "admin",
+        "password_hash": "LiKy9XsnfaoWcVb3/XeW9HVKx1vqVRryFeeF96DbamUVX0tU",
+        "hashing_algorithm": "rabbit_password_hashing_sha256",
+        "tags": [
+          "administrator"
+        ],
+        "limits": {}
+      },
+      {
+        "name": "user_queue",
+        "password_hash": "8HmohexjgAiakUx7MjCFKYT4gnUlXb+FcqPCZwdA5o1ydOxX",
+        "hashing_algorithm": "rabbit_password_hashing_sha256",
+        "tags": [
+          "None"
+        ],
+        "limits": {}
+      }
+    ],
+    "vhosts": [
+      {
+        "name": "/",
+        "description": "Default virtual host",
+        "tags": [],
+        "metadata": {
+          "description": "Default virtual host",
+          "tags": []
+        }
+      }
+    ],
+    "permissions": [
+      {
+        "user": "admin",
+        "vhost": "/",
+        "configure": ".*",
+        "write": ".*",
+        "read": ".*"
+      },
+      {
+        "user": "user_queue",
+        "vhost": "/",
+        "configure": ".*",
+        "write": ".*",
+        "read": ".*"
+      }
+    ],
+    "topic_permissions": [
+      {
+        "user": "user_queue",
+        "vhost": "/",
+        "exchange": "",
+        "write": ".*",
+        "read": ".*"
+      }
+    ],
+    "parameters": [],
+    "global_parameters": [
+      {
+        "name": "internal_cluster_id",
+        "value": "rabbitmq-cluster-id-9K3_Kk-DotLz8qo04UQVHg"
+      }
+    ],
+    "policies": [],
+    "queues": [
+      {
+        "name": "proposal_report_queue",
+        "vhost": "/",
+        "durable": true,
+        "auto_delete": false,
+        "arguments": {
+          "x-queue-type": "classic"
+        }
+      },
+      {
+        "name": "dead_letter_queue",
+        "vhost": "/",
+        "durable": true,
+        "auto_delete": false,
+        "arguments": {
+          "x-queue-type": "classic"
+        }
+      },
+      {
+        "name": "proposal_data_queue",
+        "vhost": "/",
+        "durable": true,
+        "auto_delete": false,
+        "arguments": {
+          "x-dead-letter-exchange": "dead_letter_exchange",
+          "x-dead-letter-routing-key": "dead_letter_key",
+          "x-queue-type": "classic"
+        }
+      },
+      {
+        "name": "proposal_update_queue",
+        "vhost": "/",
+        "durable": true,
+        "auto_delete": false,
+        "arguments": {
+          "x-queue-type": "classic"
+        }
+      }
+    ],
+    "exchanges": [
+      {
+        "name": "dead_letter_exchange",
+        "vhost": "/",
+        "type": "direct",
+        "durable": true,
+        "auto_delete": false,
+        "internal": false,
+        "arguments": {}
+      }
+    ],
+    "bindings": [
+      {
+        "source": "dead_letter_exchange",
+        "vhost": "/",
+        "destination": "dead_letter_queue",
+        "destination_type": "queue",
+        "routing_key": "dead_letter_key",
+        "arguments": {}
+      }
+    ]
+  }
