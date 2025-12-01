@@ -1,0 +1,19 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.io.proposal</groupId>
+    <artifactId>portfolio-proposal-management-system-v1</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0</version>
+
+    <name>portfolio-proposal-management-system-v1</name>
+
+    <modules>
+        <module>proposal-management-api</module>
+        <module>proposal-processor-api</module>
+    </modules>
+
+</project>
