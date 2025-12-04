@@ -3,6 +3,7 @@ package com.io.proposal.processor.rule.impl;
 import com.io.proposal.processor.domain.internal.ProposalInternal;
 import com.io.proposal.processor.domain.internal.ProposalUpdateInternal;
 import com.io.proposal.processor.rule.ProposalRule;
+
 import java.math.BigDecimal;
 
 @SuppressWarnings("unused")

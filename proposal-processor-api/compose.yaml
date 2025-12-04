@@ -1,0 +1,24 @@
+name: proposal-management-system-group
+
+services:
+
+  proposal-processor-api:
+    build:
+      context: .
+    ports:
+      - "7071"
+    environment:
+      SPRING_PROFILES_ACTIVATE: prd
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: user_queue
+      RABBITMQ_PASSWORD: user_queue
+      RABBITMQ_PRODUCER_MANAGEMENT: proposal_update_queue
+      RABBITMQ_CONSUMER_MANAGEMENT: proposal_data_queue
+      SERVER_PORT: 7071
+    networks:
+      - project_net
+
+networks:
+  project_net:
+    external: true

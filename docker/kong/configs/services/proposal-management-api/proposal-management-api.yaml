@@ -1,0 +1,45 @@
+_format_version: "3.0"
+_workspace: default
+
+services:
+
+  - name: proposal-management-api
+    host: proposal-management-api
+    port: 7070
+    protocol: http
+    enabled: true
+    connect_timeout: 60100
+    write_timeout: 60000
+    plugins:
+    - name: rate-limiting
+      enabled: true
+      config:
+        minute: 120
+        error_code: 429
+        error_message: API rate limit exceeded
+
+    routes:
+
+      - name: save_proposal
+        paths:
+          - /v1/proposals
+        strip_path: false
+        tags:
+          - "Salva propostas e envia propostas pra fila."
+        protocols:
+          - http
+        https_redirect_status_code: 426 
+        methods:
+          - POST
+      
+      - name: update_proposal
+        paths:
+          - /v1/proposals
+        strip_path: false
+        tags:
+          - "Atualiza propostas e envia propostas."
+        protocols:
+          - http
+        https_redirect_status_code: 426 
+        methods:
+          - PUT

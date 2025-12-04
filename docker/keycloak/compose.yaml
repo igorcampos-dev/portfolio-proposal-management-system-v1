@@ -1,0 +1,35 @@
+name: proposal-management-system-group
+
+services:
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0.1
+    container_name: keycloak
+    ports:
+      - "9090:9090"
+    command:
+      - "start-dev"
+      - "--import-realm"
+      - "--http-port=9090"
+    volumes:
+      - ./configs/keycloak.conf:/opt/keycloak/conf/keycloak.conf
+    networks:
+      - project_net
+
+  keycloak-database:
+    image: postgres:13
+    container_name: keycloak-database
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: keycloak_db
+    ports:
+      - "5433:5432"
+    networks:
+      - project_net
+    volumes:
+      - ./configs/backup.sql:/docker-entrypoint-initdb.d/init.sql
+
+networks:
+  project_net:
+    external: true

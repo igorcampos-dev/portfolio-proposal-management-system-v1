@@ -1,0 +1,18 @@
+server:
+  port: ${SERVER_PORT}
+
+spring:
+
+  application:
+    name: ${SPRING_APPLICATION_NAME}
+
+keycloak:
+  realm: ${KEYCLOAK_REALM}
+  client-id: ${KEYCLOAK_CLIENT_ID}
+  client-secret: ${KEYCLOAK_CLIENT_SECRET}
+  username: ${KEYCLOAK_USERNAME}
+  password: ${KEYCLOAK_PASSWORD}
+
+external:
+  proposal-management-api: ${EXTERNAL_URL_PROPOSAL_MANAGEMENT}
+  auth-keycloak-api: ${EXTERNAL_URL_AUTH_KEYCLOAK}

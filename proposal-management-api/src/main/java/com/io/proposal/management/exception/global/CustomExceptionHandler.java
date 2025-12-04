@@ -9,6 +9,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -36,11 +37,15 @@ public class CustomExceptionHandler {
     }
 
     private String getErrorMessage(MethodArgumentNotValidException e) {
-        return e.getBindingResult().getAllErrors().stream().map(error -> {
-            String field = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            return field + " " + errorMessage;
-        }).collect(Collectors.joining(", "));
+        return e.getBindingResult()
+                .getAllErrors()
+                .stream()
+                .map(error -> {
+                    String field = ((FieldError) error).getField();
+                    String errorMessage = error.getDefaultMessage();
+                    return field + " " + errorMessage;
+                })
+                .collect(Collectors.joining(", "));
     }
 
 }

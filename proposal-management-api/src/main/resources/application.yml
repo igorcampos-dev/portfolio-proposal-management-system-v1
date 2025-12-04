@@ -1,6 +1,6 @@
 
 server:
-  port: ${SERVER_PORT:8090}
+  port: ${SERVER_PORT:8080}
 
 spring:
 
@@ -11,8 +11,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/proposal-management
-          jwk-uri: http://localhost:8080/realms/proposal-management/protocol/openid-connect/certs
+          issuer-uri: http://localhost:9090/realms/proposal-management
+          jwk-uri: http://localhost:9090/realms/proposal-management/protocol/openid-connect/certs
 
   jpa:
     open-in-view: false

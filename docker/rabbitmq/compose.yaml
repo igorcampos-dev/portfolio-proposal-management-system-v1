@@ -1,0 +1,19 @@
+name: proposal-management-system-group
+
+services:
+
+  rabbitmq:
+    image: rabbitmq:4.0.2-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - ./configs/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./configs/rabbitmq-definitions.json:/etc/rabbitmq/definitions.json:ro
+    networks:
+      - project_net
+
+networks:
+  project_net:
+    external: true

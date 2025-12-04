@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDateTime;
 
 @Slf4j
@@ -31,8 +32,10 @@ public class ProposalsServiceImpl implements ProposalsService {
     @Transactional
     public ProposalSaveResponse saveProposal(@Valid ProposalSaveRequest dto) {
         log.info("Preparando pra salvar no banco...");
-        var entity = this.proposalRepository.save(mapper.toEntity(dto));
+        var entity = mapper.toEntity(dto);
+        this.proposalRepository.save(entity);
         log.info("Salvo no banco.");
+        this.producer.publishMessage(entity);
         return mapper.toResponseSave(entity);
     }
 

@@ -4,9 +4,10 @@ import com.io.proposal.management.domain.dto.request.ProposalUpdateRequest;
 import com.io.proposal.management.domain.entity.fields.Status;
 import com.io.proposal.management.domain.internal.ProposalUpdateInternal;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
