@@ -1,0 +1,49 @@
+name: proposal-management-system-group
+
+services:
+
+  proposal-management-api:
+    build:
+      context: .
+    ports:
+      - "7070"
+    environment:
+      TZ: America/Sao_Paulo
+      SERVER_PORT: 7070
+      DB_JPA_SHOW_SQL: false
+      DB_DDL_AUTO: update
+      DB_SERVER: database
+      DB_PORT: 5432
+      DB_DATABASE: proposals_management_db
+      DB_USER: postgres
+      DB_PASSWORD: password
+      DB_SCHEMA: public
+      FLYWAY_ENABLED: true
+      RABBITMQ_USERNAME: user_queue
+      RABBITMQ_PASSWORD: user_queue
+      RABBITMQ_ADDRESSES: rabbitmq:5672
+      RABBITMQ_PRODUCER_PROPOSAL_QUEUE: proposal_data_queue
+      RABBITMQ_CONSUMER_UPDATE_PROPOSAL_QUEUE: proposal_update_queue
+      SPRING_PROFILES_ACTIVE: prd
+      JWT_ISSUER_URI: http://keycloak:9090/realms/proposal-management
+      JWT_JWK_URI: http://keycloak:9090/realms/proposal-management/protocol/openid-connect/certs
+    depends_on:
+      - database
+    networks:
+      - project_net
+
+  database:
+    image: postgres:13
+    container_name: database
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: proposals_management_db
+    ports:
+      - "5432:5432"
+    networks:
+      - project_net
+
+networks:
+  project_net:
+    external: true

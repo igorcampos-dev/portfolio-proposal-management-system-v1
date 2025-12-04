@@ -12,6 +12,7 @@
     <name>portfolio-proposal-management-system-v1</name>
 
     <modules>
+        <module>proposal-user-agent-api</module>
         <module>proposal-management-api</module>
         <module>proposal-processor-api</module>
     </modules>

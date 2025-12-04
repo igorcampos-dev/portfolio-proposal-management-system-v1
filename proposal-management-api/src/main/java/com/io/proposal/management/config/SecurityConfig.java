@@ -4,7 +4,6 @@ import com.io.proposal.management.config.properties.KeycloakProperties;
 import com.io.proposal.management.exception.global.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.HttpMethod;
@@ -23,6 +22,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.stereotype.Component;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;

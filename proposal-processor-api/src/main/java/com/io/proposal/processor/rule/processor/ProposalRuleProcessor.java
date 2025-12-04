@@ -8,6 +8,7 @@ import com.io.proposal.processor.rule.impl.LowValueProposalRule;
 import com.io.proposal.processor.rule.impl.ManualApprovalRule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 @Component

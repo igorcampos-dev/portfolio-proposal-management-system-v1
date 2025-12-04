@@ -1,6 +1,7 @@
 package com.io.proposal.management.domain.dto.response;
 
 import lombok.Builder;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 

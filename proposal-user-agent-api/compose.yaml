@@ -1,0 +1,26 @@
+name: proposal-management-system-group
+
+services:
+
+  proposal-user-agent-api:
+    build:
+      context: .
+    ports:
+      - "7072"
+    environment:
+      SPRING_PROFILES_ACTIVATE: prd
+      SERVER_PORT: 7072
+      SPRING_APPLICATION_NAME: proposal-user-agent-api-prd
+      KEYCLOAK_REALM: proposal-management
+      KEYCLOAK_CLIENT_ID: proposal-management-client-private
+      KEYCLOAK_CLIENT_SECRET: v4ctHK7d8Y6HZ6wmcrMuKtmp4ItWOH0m
+      KEYCLOAK_USERNAME: user-default
+      KEYCLOAK_PASSWORD: password-default
+      EXTERNAL_URL_PROPOSAL_MANAGEMENT: http://kong-gateway:8000
+      EXTERNAL_URL_AUTH_KEYCLOAK: http://keycloak:9090
+    networks:
+      - project_net
+
+networks:
+  project_net:
+    external: true

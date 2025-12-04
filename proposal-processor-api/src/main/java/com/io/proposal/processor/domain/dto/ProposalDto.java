@@ -1,6 +1,7 @@
 package com.io.proposal.processor.domain.dto;
 
 import com.io.proposal.processor.domain.fields.Status;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 

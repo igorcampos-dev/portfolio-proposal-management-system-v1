@@ -10,32 +10,10 @@ O **Proposal Processor API** é um projeto destinado ao tratamento e processamen
 - Processamento de propostas com validação e controle de status.
 - Suporte a execução via **Docker Compose**.
 
-### Pré-requisitos
+### Como Executar
 
-- **Docker** e **Docker Compose** instalados.
+1. **Na raiz principal do repositório, execute:**
 
-### Como testar usando Docker
-
-Para rodar o projeto completo usando o Docker, siga os passos abaixo:
-
-```bash
-docker compose up
-```
-
-### Como executar localmente
-
-Se você deseja rodar o banco de dados e o RabbitMQ localmente, sem a aplicação principal, execute os seguintes comandos:
-
-1. Para iniciar apenas o banco de dados:
-
-    ```bash
-    docker compose up database
-    ```
-
-2. Para iniciar o RabbitMQ:
-
-    ```bash
-    docker compose up rabbitmq
-    ```
-
-Com isso, o banco de dados e o RabbitMQ estarão rodando em seus respectivos containers e você poderá executar a aplicação em sua máquina localmente, se necessário.
+   ```bash
+   sh docker/init.sh
+   ```

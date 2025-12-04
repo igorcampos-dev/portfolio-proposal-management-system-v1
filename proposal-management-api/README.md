@@ -6,27 +6,8 @@ Esse projeto trabalha a manipulação de propostas. Para cada cadastro de propos
 
 ### Como Executar
 
-1. **Certifique-se de ter o Docker e o Docker Compose instalados.**
-
-2. **Suba os serviços usando Docker Compose:**
-
-   Para rodar o projeto completo:
+1. **Na raiz principal do repositório, execute:**
 
    ```bash
-   sh ./docker/init.sh
+   sh docker/init.sh
    ```
-3. **Execute finalmente:**
-
-   ```bash
-   docker compose up proposal-management-api
-   ```
-
-### Como Executar Localmente
-
-1. **Para executar local, use:**
-
-    ```bash
-    sh ./docker/init.sh
-    ```
-
-2. **Finalmente, execute o projeto na sua IDE preferida.**
