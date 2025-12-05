@@ -1,10 +1,11 @@
 package com.io.proposal.userAgent.proposalProcessorApi.generator;
 
-import com.github.javafaker.Faker;
 import com.io.proposal.userAgent.proposalProcessorApi.dto.request.ProposalSaveRequest;
+import net.datafaker.Faker;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -29,7 +30,7 @@ public class RealisticProposalGenerator {
 
         return new ProposalSaveRequest(
                 faker.commerce().productName() + " - " + faker.commerce().material(),
-                BigDecimal.valueOf(value).setScale(2, BigDecimal.ROUND_HALF_UP),
+                BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP),
                 generateSupplierId(),
                 faker.company().name(),
                 generateClientId(),

@@ -17,6 +17,9 @@ O sistema consiste em dois microserviços que se comunicam utilizando o conceito
 - **`proposal-processor-api`**  
   Processa as propostas recebidas da fila, seguindo regras definidas. Após o processamento, envia os resultados de volta para a fila. O microserviço `proposal-management-api` consome esses resultados e atualiza os dados no banco.
 
+- **`proposal-user-agent-api`**
+  Simular a interação de um usuário com o fluxo geral do sistema de processamento de propostas.
+
 ---
 
 ## **Visão de Arquitetura**
