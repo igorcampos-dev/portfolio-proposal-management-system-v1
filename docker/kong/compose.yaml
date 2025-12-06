@@ -3,7 +3,7 @@ name: proposal-management-system-group
 services:
 
   kong-database:
-    image: postgres:13
+    image: postgres:18
     container_name: kong-database
     environment:
       POSTGRES_USER: kong
