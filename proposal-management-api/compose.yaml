@@ -33,7 +33,7 @@ services:
       - project_net
 
   database:
-    image: postgres:13
+    image: postgres:18
     container_name: database
     environment:
       POSTGRES_PASSWORD: password

@@ -3,7 +3,7 @@ name: proposal-management-system-group
 services:
 
   keycloak:
-    image: quay.io/keycloak/keycloak:26.0.1
+    image: quay.io/keycloak/keycloak:26.4.7
     container_name: keycloak
     ports:
       - "9090:9090"
@@ -17,7 +17,7 @@ services:
       - project_net
 
   keycloak-database:
-    image: postgres:13
+    image: postgres:18
     container_name: keycloak-database
     environment:
       POSTGRES_USER: postgres
