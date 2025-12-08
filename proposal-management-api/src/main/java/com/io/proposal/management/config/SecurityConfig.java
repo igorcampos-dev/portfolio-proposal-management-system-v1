@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-@SuppressWarnings("unused")
+
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -103,6 +103,7 @@ public class SecurityConfig {
             requests.requestMatchers(HttpMethod.POST, "/v1/proposals").hasRole("BASIC");
             requests.requestMatchers(HttpMethod.PUT, "/v1/proposals").hasRole("BASIC");
             requests.requestMatchers(HttpMethod.GET, "/v1/proposals").hasRole("BASIC");
+            requests.requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs*/**", "/swagger-ui.html").permitAll();
             requests.anyRequest().authenticated();
         });
         http.httpBasic(Customizer.withDefaults());

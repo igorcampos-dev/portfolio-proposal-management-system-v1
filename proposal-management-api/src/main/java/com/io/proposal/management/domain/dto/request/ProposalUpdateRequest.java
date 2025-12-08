@@ -1,41 +1,45 @@
 package com.io.proposal.management.domain.dto.request;
 
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import com.io.proposal.management.domain.entity.fields.ClientType;
+import com.io.proposal.management.domain.entity.fields.PaymentModel;
+import com.io.proposal.management.domain.entity.fields.RiskCategory;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.math.BigDecimal;
 
 public record ProposalUpdateRequest(
 
-        @NotNull(message = "O ID não pode ser nulo")
-        @Size(max = 50, message = "O ID deve ter no máximo 50 caracteres")
+        @Schema(description = "Unique database id", example = "f4c09a1c-7b7b-4c5a-9f42-2c7b1e8b2d71")
         String id,
 
-        @NotNull(message = "A descrição não pode ser nula")
-        @Size(max = 1000, message = "A descrição deve ter no máximo 1000 caracteres")
-        String description,
+        @Schema(description = "Unique identifier of the contract", example = "CTR-2025-00421")
+        String contractId,
 
-        @NotNull(message = "O valor não pode ser nulo")
-        @DecimalMin(value = "0.0", inclusive = false, message = "O valor deve ser maior que zero")
-        @Digits(integer = 15, fraction = 2, message = "O valor deve ter no máximo 15 dígitos inteiros e 2 casas decimais")
-        BigDecimal value,
+        @Schema(description = "Client name", example = "AlphaTech Solutions")
+        String clientName,
 
-        @NotNull(message = "O ID do fornecedor não pode ser nulo")
-        @Size(max = 50, message = "O ID do fornecedor deve ter no máximo 50 caracteres")
-        String supplierId,
+        @Schema(description = "Type of client (PF or PJ)")
+        ClientType clientType,
 
-        @NotNull(message = "O nome do fornecedor não pode ser nulo")
-        @Size(max = 255, message = "O nome do fornecedor deve ter no máximo 255 caracteres")
-        String supplierName,
+        @Schema(description = "Type of service contracted", example = "Software Development")
+        String serviceType,
 
-        @NotNull(message = "O ID do cliente não pode ser nulo")
-        @Size(max = 50, message = "O ID do cliente deve ter no máximo 50 caracteres")
-        String clientId,
+        @Schema(description = "Total value of the contract", example = "150000")
+        BigDecimal contractValue,
 
-        @NotNull(message = "O nome do cliente não pode ser nulo")
-        @Size(max = 255, message = "O nome do cliente deve ter no máximo 255 caracteres")
-        String clientName
+        @Schema(description = "Duration of the contract in months", example = "12")
+        int durationMonths,
+
+        @Schema(description = "Payment model")
+        PaymentModel paymentModel,
+
+        @Schema(description = "Risk category")
+        RiskCategory riskCategory,
+
+        @Schema(description = "Whether the service requires on-site presence", example = "false")
+        boolean requiresOnSite,
+
+        @Schema(description = "Service Level Agreement time in hours", example = "48")
+        int slaHours
 
 ) {}

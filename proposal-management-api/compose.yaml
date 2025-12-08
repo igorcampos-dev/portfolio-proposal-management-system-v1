@@ -27,6 +27,7 @@ services:
       SPRING_PROFILES_ACTIVE: prd
       JWT_ISSUER_URI: http://keycloak:9090/realms/proposal-management
       JWT_JWK_URI: http://keycloak:9090/realms/proposal-management/protocol/openid-connect/certs
+      SWAGGER_ENABLE: false
     depends_on:
       - database
     networks:

@@ -7,8 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Status {
     PENDING("PENDING"),
-    PROCESSED("PROCESSED"),
-    DENIED("DENIED"),
+    APPROVED("APPROVED"),
+    REJECTED("REJECTED"),
     EXPIRED("EXPIRED"),
     REQUIRES_MANUAL_APPROVAL("REQUIRES_MANUAL_APPROVAL"),
     ERROR("ERROR");

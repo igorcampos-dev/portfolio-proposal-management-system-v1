@@ -12,20 +12,20 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ProposalQueueProducer {
 
-    @SuppressWarnings("unused")
+    
     @Value("${spring.rabbitmq.template.queues.producers.proposal-queue}")
     private String queue;
 
     private final RabbitTemplate rabbitTemplate;
 
     public void publishMessage(ProposalEntity entity){
-        log.info("Iniciando processo de publicação da mensagem de id: {}", entity.getId());
+        log.info("Starting message publishing process for id: {}", entity.getId());
         this.rabbitTemplate.convertAndSend(
                 "",
                 queue,
                 entity
         );
-        log.info("Mensagem de id: {} publicado.", entity.getId());
+        log.info("Message with id: {} published.", entity.getId());
     }
 
 }

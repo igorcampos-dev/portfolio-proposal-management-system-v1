@@ -14,7 +14,7 @@ services:
     - name: rate-limiting
       enabled: true
       config:
-        minute: 120
+        minute: 1000
         error_code: 429
         error_message: API rate limit exceeded
 
@@ -43,3 +43,15 @@ services:
         https_redirect_status_code: 426 
         methods:
           - PUT
+
+      - name: get_proposal_by_id
+        paths:
+          - /v1/proposals/(?<id>[^/]+)
+        strip_path: false
+        tags:
+          - "Busca uma proposta pelo ID."
+        protocols:
+          - http
+        https_redirect_status_code: 426
+        methods:
+          - GET
