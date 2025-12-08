@@ -14,5 +14,5 @@ keycloak:
   password: ${KEYCLOAK_PASSWORD:password-default}
 
 external:
-  proposal-management-api: ${EXTERNAL_URL_PROPOSAL_MANAGEMENT:http://localhost:8000}
+  proposal-management-api: ${EXTERNAL_URL_PROPOSAL_MANAGEMENT:http://localhost:8080}
   auth-keycloak-api: ${EXTERNAL_URL_AUTH_KEYCLOAK:http://localhost:9090}

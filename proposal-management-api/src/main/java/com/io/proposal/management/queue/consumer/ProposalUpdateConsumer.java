@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-@SuppressWarnings("unused")
 public class ProposalUpdateConsumer {
 
     private final ProposalsService service;

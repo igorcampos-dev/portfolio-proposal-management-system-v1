@@ -1,7 +1,7 @@
 package com.io.proposal.processor.queue.producer;
 
-import com.io.proposal.processor.domain.internal.ProposalUpdateInternal;
+import com.io.proposal.processor.domain.bo.ProposalUpdateBo;
 
 public interface ProposalUpdateProducer {
-    void publishMessage(ProposalUpdateInternal ProposalUpdate);
+    void publishMessage(ProposalUpdateBo ProposalUpdate);
 }

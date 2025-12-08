@@ -40,3 +40,9 @@ spring:
           proposal-queue: ${RABBITMQ_PRODUCER_PROPOSAL_QUEUE}
         consumers:
           proposal-update: ${RABBITMQ_CONSUMER_UPDATE_PROPOSAL_QUEUE}
+
+springdoc:
+  swagger-ui:
+    enabled: ${SWAGGER_ENABLE}
+  api-docs:
+    enabled: ${SWAGGER_ENABLE}

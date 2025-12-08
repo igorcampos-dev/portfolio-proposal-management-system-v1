@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-@SuppressWarnings("unused")
+
 public class RabbitMQConfig {
 
     private final QueueProperties properties;
