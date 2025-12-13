@@ -32,10 +32,9 @@ public class ProposalsServiceImpl implements ProposalsService {
     @Transactional
     public ProposalSaveResponse saveProposal(@Valid ProposalSaveRequest dto) {
         log.info("Preparando pra salvar no banco...");
-        var entity = mapper.toEntity(dto);
-        this.proposalRepository.save(entity);
+        var entity = this.proposalRepository.save(mapper.toEntity(dto));
         log.info("Salvo no banco.");
-        this.producer.publishMessage(entity);
+        this.producer.publishMessage(mapper.toQueueBo(entity));
         return mapper.toResponseSave(entity);
     }
 

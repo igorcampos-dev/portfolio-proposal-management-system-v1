@@ -1,7 +1,7 @@
 package com.io.proposal.processor.service.impl;
 
-import com.io.proposal.processor.domain.internal.ProposalInternal;
-import com.io.proposal.processor.domain.internal.ProposalUpdateInternal;
+import com.io.proposal.processor.domain.bo.ProposalBo;
+import com.io.proposal.processor.domain.bo.ProposalUpdateBo;
 import com.io.proposal.processor.mapper.ProposalMapper;
 import com.io.proposal.processor.queue.producer.ProposalUpdateProducer;
 import com.io.proposal.processor.rule.processor.ProposalRuleProcessor;
@@ -21,14 +21,14 @@ public class ProposalsServiceImpl implements ProposalsService {
     private final ProposalMapper mapper;
 
     @Override
-    public void process(ProposalInternal proposalInternal) {
+    public void process(ProposalBo proposalBo) {
         log.info("Iniciando o processo de aplicação das regras na proposta...");
-        ProposalUpdateInternal update = ruleProcessor.process(proposalInternal);
+        ProposalUpdateBo update = ruleProcessor.process(proposalBo);
         log.info("Regras validadas, tudo ok.");
         managementProducer.publishMessage(update);
     }
 
-    private void publishProposalToUpdateToQueue(ProposalUpdateInternal proposal) {
+    private void publishProposalToUpdateToQueue(ProposalUpdateBo proposal) {
         this.managementProducer.publishMessage(proposal);
     }
 

@@ -1,7 +1,7 @@
 package com.io.proposal.processor.rule.impl;
 
-import com.io.proposal.processor.domain.internal.ProposalInternal;
-import com.io.proposal.processor.domain.internal.ProposalUpdateInternal;
+import com.io.proposal.processor.domain.bo.ProposalBo;
+import com.io.proposal.processor.domain.bo.ProposalUpdateBo;
 import com.io.proposal.processor.rule.ProposalRule;
 
 import java.time.LocalDateTime;
@@ -11,13 +11,13 @@ import java.time.temporal.ChronoUnit;
 public class ExpiredProposalRule implements ProposalRule {
 
     @Override
-    public boolean applies(ProposalInternal proposal) {
+    public boolean applies(ProposalBo proposal) {
         return ChronoUnit.DAYS.between(proposal.getUpdatedAt(), LocalDateTime.now()) >= 30;
     }
 
     @Override
-    public ProposalUpdateInternal process(ProposalInternal proposal) {
-        return ProposalUpdateInternal.setProposalExpired(proposal.getId());
+    public ProposalUpdateBo process(ProposalBo proposal) {
+        return ProposalUpdateBo.setProposalExpired(proposal.getId());
     }
 
 }

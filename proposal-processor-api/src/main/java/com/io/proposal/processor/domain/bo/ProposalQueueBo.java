@@ -1,11 +1,11 @@
-package com.io.proposal.processor.domain.dto;
+package com.io.proposal.processor.domain.bo;
 
 import com.io.proposal.processor.domain.fields.Status;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public record ProposalDto(
+public record ProposalQueueBo(
         String id,
         String description,
         BigDecimal value,

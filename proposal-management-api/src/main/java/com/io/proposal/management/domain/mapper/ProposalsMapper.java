@@ -1,5 +1,6 @@
 package com.io.proposal.management.domain.mapper;
 
+import com.io.proposal.management.domain.bo.ProposalQueueBo;
 import com.io.proposal.management.domain.dto.request.ProposalSaveRequest;
 import com.io.proposal.management.domain.dto.response.ProposalSaveResponse;
 import com.io.proposal.management.domain.dto.response.ProposalUpdateResponse;
@@ -22,4 +23,5 @@ public abstract class ProposalsMapper {
     @Mapping(target = ".", source = ".")
     public abstract ProposalUpdateResponse toResponseUpdate(ProposalEntity entity);
 
+    public abstract ProposalQueueBo toQueueBo(ProposalEntity entity);
 }

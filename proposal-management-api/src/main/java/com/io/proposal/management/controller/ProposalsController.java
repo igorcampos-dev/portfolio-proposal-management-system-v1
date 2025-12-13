@@ -6,6 +6,7 @@ import com.io.proposal.management.domain.dto.response.ProposalSaveResponse;
 import com.io.proposal.management.domain.dto.response.ProposalUpdateResponse;
 import com.io.proposal.management.service.ProposalsService;
 import jakarta.validation.Valid;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ public class ProposalsController {
     private final ProposalsService service;
 
     @PostMapping
-    public ResponseEntity<ProposalSaveResponse> saveProposal(@Valid @RequestBody ProposalSaveRequest dto){
+    public ResponseEntity<@NonNull ProposalSaveResponse> saveProposal(@Valid @RequestBody ProposalSaveRequest dto){
         log.info("Iniciando processo de cadastro de uma proposta...");
         var response = service.saveProposal(dto);
         log.info("Processo de cadastro de uma proposta finalizado com sucesso.");
@@ -30,7 +31,7 @@ public class ProposalsController {
     }
 
     @PutMapping
-    public ResponseEntity<ProposalUpdateResponse> updateProposal(@Valid @RequestBody ProposalUpdateRequest dto){
+    public ResponseEntity<@NonNull ProposalUpdateResponse> updateProposal(@Valid @RequestBody ProposalUpdateRequest dto){
         log.info("Iniciando processo de atualização de uma proposta...");
         var response = service.updateProposal(dto);
         log.info("Processo de atualização de uma proposta finalizado com sucesso.");

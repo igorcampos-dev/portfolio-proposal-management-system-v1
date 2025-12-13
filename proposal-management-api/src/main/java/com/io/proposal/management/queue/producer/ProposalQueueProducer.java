@@ -1,6 +1,6 @@
 package com.io.proposal.management.queue.producer;
 
-import com.io.proposal.management.domain.entity.ProposalEntity;
+import com.io.proposal.management.domain.bo.ProposalQueueBo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -18,7 +18,7 @@ public class ProposalQueueProducer {
 
     private final RabbitTemplate rabbitTemplate;
 
-    public void publishMessage(ProposalEntity entity){
+    public void publishMessage(ProposalQueueBo entity){
         log.info("Iniciando processo de publicação da mensagem de id: {}", entity.getId());
         this.rabbitTemplate.convertAndSend(
                 "",

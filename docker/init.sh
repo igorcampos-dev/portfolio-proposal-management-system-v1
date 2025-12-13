@@ -16,9 +16,15 @@ sleep 5
 
 # proposal-management-api
 docker compose -f proposal-management-api/compose.yaml up -d --build
+sleep 5
 
 # proposal-processor-api
 docker compose -f proposal-processor-api/compose.yaml up -d --build
+sleep 5
 
 # proposal-user-agent-api
 docker compose -f proposal-user-agent-api/compose.yaml up -d --build
+sleep 5
+
+# Remove kong-deck
+docker rm -f kong-deck

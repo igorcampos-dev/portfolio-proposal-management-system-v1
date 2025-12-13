@@ -1,9 +1,9 @@
 package com.io.proposal.processor.rule;
 
-import com.io.proposal.processor.domain.internal.ProposalInternal;
-import com.io.proposal.processor.domain.internal.ProposalUpdateInternal;
+import com.io.proposal.processor.domain.bo.ProposalBo;
+import com.io.proposal.processor.domain.bo.ProposalUpdateBo;
 
 public interface ProposalRule {
-    boolean applies(ProposalInternal proposal);
-    ProposalUpdateInternal process(ProposalInternal proposal);
+    boolean applies(ProposalBo proposal);
+    ProposalUpdateBo process(ProposalBo proposal);
 }

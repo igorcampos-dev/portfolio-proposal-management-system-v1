@@ -1,4 +1,4 @@
-package com.io.proposal.processor.domain.internal;
+package com.io.proposal.processor.domain.bo;
 
 import com.io.proposal.processor.domain.fields.Status;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProposalInternal {
+public class ProposalBo {
     private String id;
     private String description;
     private BigDecimal value;

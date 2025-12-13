@@ -1,7 +1,7 @@
 package com.io.proposal.processor.mapper;
 
-import com.io.proposal.processor.domain.dto.ProposalDto;
-import com.io.proposal.processor.domain.internal.ProposalInternal;
+import com.io.proposal.processor.domain.bo.ProposalBo;
+import com.io.proposal.processor.domain.bo.ProposalQueueBo;
 import jakarta.validation.Valid;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -10,6 +10,6 @@ import org.mapstruct.Mapping;
 public abstract class ProposalMapper {
 
     @Mapping(target = ".", source = ".")
-    public abstract ProposalInternal toInternal(@Valid ProposalDto dto);
+    public abstract ProposalBo toInternal(@Valid ProposalQueueBo dto);
 
 }
