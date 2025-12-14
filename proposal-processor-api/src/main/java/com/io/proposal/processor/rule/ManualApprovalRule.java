@@ -4,6 +4,7 @@ import com.io.proposal.processor.domain.bo.ProposalUpdateBo;
 import com.io.proposal.processor.domain.dto.ProposalDto;
 import com.io.proposal.processor.domain.fields.RiskCategory;
 import com.io.proposal.processor.domain.fields.Status;
+
 import java.math.BigDecimal;
 
 public class ManualApprovalRule implements ProposalRule {

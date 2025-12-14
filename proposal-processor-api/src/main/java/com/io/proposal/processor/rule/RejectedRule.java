@@ -6,6 +6,7 @@ import com.io.proposal.processor.domain.fields.ClientType;
 import com.io.proposal.processor.domain.fields.PaymentModel;
 import com.io.proposal.processor.domain.fields.RiskCategory;
 import com.io.proposal.processor.domain.fields.Status;
+
 import java.math.BigDecimal;
 
 public class RejectedRule implements ProposalRule {

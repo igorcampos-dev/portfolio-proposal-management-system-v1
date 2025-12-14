@@ -6,6 +6,7 @@ import com.io.proposal.userAgent.dto.response.KeycloakTokenResponse;
 import lombok.NonNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import java.time.Duration;
 
 @Configuration

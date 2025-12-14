@@ -2,6 +2,7 @@ package com.io.proposal.management.config;
 
 import com.io.proposal.management.config.properties.KeycloakProperties;
 import com.io.proposal.management.exception.global.CustomAuthenticationEntryPoint;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
@@ -28,13 +29,12 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-
 @RequiredArgsConstructor
 public class SecurityConfig {
 
     private final KeycloakProperties properties;
 
-    interface AuthoritiesConverter extends Converter<Map<String, Object>, Collection<GrantedAuthority>> {}
+    interface AuthoritiesConverter extends Converter<@NonNull Map<String, Object>, @NonNull Collection<GrantedAuthority>> {}
 
     @Bean
     AuthoritiesConverter realmRolesAuthoritiesConverter() {
@@ -59,8 +59,8 @@ public class SecurityConfig {
 
     @Bean
     JwtAuthenticationConverter authenticationConverter(
-            Converter<Map<String, Object>,
-            Collection<GrantedAuthority>> authoritiesConverter
+            Converter<@NonNull Map<String, Object>,
+            @NonNull Collection<GrantedAuthority>> authoritiesConverter
     ) {
         var authenticationConverter = new JwtAuthenticationConverter();
         authenticationConverter.setJwtGrantedAuthoritiesConverter(jwt -> authoritiesConverter.convert(jwt.getClaims()));
@@ -88,7 +88,7 @@ public class SecurityConfig {
     @SneakyThrows(Exception.class)
     SecurityFilterChain resourceServerSecurityFilterChain(
             HttpSecurity http,
-            Converter<Jwt, AbstractAuthenticationToken> authenticationConverter,
+            Converter<@NonNull Jwt, @NonNull AbstractAuthenticationToken> authenticationConverter,
             CustomAuthenticationEntryPoint authenticationEntryPoint
     ) {
 

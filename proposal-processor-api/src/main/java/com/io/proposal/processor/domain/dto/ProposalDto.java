@@ -3,6 +3,7 @@ package com.io.proposal.processor.domain.dto;
 import com.io.proposal.processor.domain.fields.ClientType;
 import com.io.proposal.processor.domain.fields.PaymentModel;
 import com.io.proposal.processor.domain.fields.RiskCategory;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 

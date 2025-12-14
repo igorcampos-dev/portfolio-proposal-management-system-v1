@@ -2,7 +2,9 @@ package com.io.proposal.management.domain.mapper;
 
 import com.io.proposal.management.domain.bo.ProposalBo;
 import com.io.proposal.management.domain.dto.request.ProposalSaveRequest;
-import com.io.proposal.management.domain.dto.response.*;
+import com.io.proposal.management.domain.dto.response.ProposalGetByIdResponse;
+import com.io.proposal.management.domain.dto.response.ProposalSaveResponse;
+import com.io.proposal.management.domain.dto.response.ProposalUpdateResponse;
 import com.io.proposal.management.domain.entity.ProposalEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

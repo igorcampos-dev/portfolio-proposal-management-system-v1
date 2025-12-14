@@ -1,11 +1,11 @@
 package com.io.proposal.management.domain.entity;
 
+import com.io.proposal.management.domain.bo.ProposalUpdateBo;
 import com.io.proposal.management.domain.dto.request.ProposalUpdateRequest;
 import com.io.proposal.management.domain.entity.fields.ClientType;
 import com.io.proposal.management.domain.entity.fields.PaymentModel;
 import com.io.proposal.management.domain.entity.fields.RiskCategory;
 import com.io.proposal.management.domain.entity.fields.Status;
-import com.io.proposal.management.domain.bo.ProposalUpdateBo;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

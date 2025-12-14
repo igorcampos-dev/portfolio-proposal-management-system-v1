@@ -1,12 +1,12 @@
 package com.io.proposal.management.domain.dto.response;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
 import com.io.proposal.management.domain.entity.fields.ClientType;
 import com.io.proposal.management.domain.entity.fields.PaymentModel;
 import com.io.proposal.management.domain.entity.fields.RiskCategory;
 import io.swagger.v3.oas.annotations.media.Schema;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Schema(description = "Response model for retrieving a proposal by its ID")
 public record ProposalGetByIdResponse(

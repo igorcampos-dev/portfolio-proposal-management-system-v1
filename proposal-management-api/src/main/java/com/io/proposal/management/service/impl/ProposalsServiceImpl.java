@@ -1,12 +1,12 @@
 package com.io.proposal.management.service.impl;
 
+import com.io.proposal.management.domain.bo.ProposalUpdateBo;
 import com.io.proposal.management.domain.dto.request.ProposalSaveRequest;
 import com.io.proposal.management.domain.dto.request.ProposalUpdateRequest;
 import com.io.proposal.management.domain.dto.response.ProposalGetByIdResponse;
 import com.io.proposal.management.domain.dto.response.ProposalSaveResponse;
 import com.io.proposal.management.domain.dto.response.ProposalUpdateResponse;
 import com.io.proposal.management.domain.entity.ProposalEntity;
-import com.io.proposal.management.domain.bo.ProposalUpdateBo;
 import com.io.proposal.management.domain.mapper.ProposalsMapper;
 import com.io.proposal.management.queue.producer.ProposalQueueProducer;
 import com.io.proposal.management.repository.ProposalRepository;
@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDateTime;
 
 @Slf4j

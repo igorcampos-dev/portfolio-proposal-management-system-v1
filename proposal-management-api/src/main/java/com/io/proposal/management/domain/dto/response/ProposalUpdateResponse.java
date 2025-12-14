@@ -3,12 +3,11 @@ package com.io.proposal.management.domain.dto.response;
 import com.io.proposal.management.domain.entity.fields.ClientType;
 import com.io.proposal.management.domain.entity.fields.PaymentModel;
 import com.io.proposal.management.domain.entity.fields.RiskCategory;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
-import io.swagger.v3.oas.annotations.media.Schema;
 
 @Builder
 @Schema(description = "Response returned after updating a proposal")

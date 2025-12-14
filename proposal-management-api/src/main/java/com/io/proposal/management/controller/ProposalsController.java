@@ -2,11 +2,13 @@ package com.io.proposal.management.controller;
 
 import com.io.proposal.management.domain.dto.request.ProposalSaveRequest;
 import com.io.proposal.management.domain.dto.request.ProposalUpdateRequest;
-import com.io.proposal.management.domain.dto.response.*;
+import com.io.proposal.management.domain.dto.response.ProposalGetByIdResponse;
+import com.io.proposal.management.domain.dto.response.ProposalSaveResponse;
+import com.io.proposal.management.domain.dto.response.ProposalUpdateResponse;
 import com.io.proposal.management.service.ProposalsService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

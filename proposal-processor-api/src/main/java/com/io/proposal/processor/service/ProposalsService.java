@@ -1,12 +1,13 @@
 package com.io.proposal.processor.service;
 
-import com.io.proposal.processor.domain.dto.ProposalDto;
 import com.io.proposal.processor.domain.bo.ProposalUpdateBo;
+import com.io.proposal.processor.domain.dto.ProposalDto;
 import com.io.proposal.processor.queue.producer.ProposalUpdateProducer;
 import com.io.proposal.processor.rule.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Slf4j
