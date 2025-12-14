@@ -3,7 +3,7 @@ name: proposal-management-system-group
 services:
 
   kong-database:
-    image: postgres:13
+    image: postgres:18
     container_name: kong-database
     environment:
       POSTGRES_USER: kong
@@ -14,7 +14,7 @@ services:
 
   kong-gateway:
     command: /bin/sh -c "kong migrations bootstrap && kong start"
-    image: kong/kong-gateway:3.8.1.0
+    image: kong/kong-gateway:3.12.0.2
     container_name: kong-gateway
     depends_on:
       - kong-database
@@ -42,6 +42,7 @@ services:
       - project_net
 
   kong-deck:
+    container_name: kong-deck
     depends_on:
       - kong-gateway
     image: kong/deck

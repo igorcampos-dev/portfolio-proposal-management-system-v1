@@ -1,6 +1,6 @@
 package com.io.proposal.management.queue.consumer;
 
-import com.io.proposal.management.domain.internal.ProposalUpdateInternal;
+import com.io.proposal.management.domain.bo.ProposalUpdateBo;
 import com.io.proposal.management.service.ProposalsService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class ProposalUpdateConsumer {
     private final ProposalsService service;
 
     @RabbitListener(queues = "${spring.rabbitmq.template.queues.consumers.proposal-update}")
-    public void listenToProposalQueue(@Valid @Payload ProposalUpdateInternal proposalUpdate){
+    public void listenToProposalQueue(@Valid @Payload ProposalUpdateBo proposalUpdate){
         this.service.updateStatusProposal(proposalUpdate);
     }
 

@@ -1,4 +1,4 @@
-FROM eclipse-temurin:23-jdk-alpine as deps
+FROM eclipse-temurin:23-jdk-alpine-3.21 as deps
 
 WORKDIR /build
 
@@ -24,7 +24,7 @@ WORKDIR /build
 
 RUN java -Djarmode=layertools -jar target/app.jar extract --destination target/extracted
 
-FROM eclipse-temurin:23-jre-alpine AS final
+FROM eclipse-temurin:23-jre-alpine-3.21 AS final
 
 ARG UID=10001
 RUN adduser \
