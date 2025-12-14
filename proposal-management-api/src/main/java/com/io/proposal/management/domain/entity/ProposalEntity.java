@@ -5,7 +5,7 @@ import com.io.proposal.management.domain.entity.fields.ClientType;
 import com.io.proposal.management.domain.entity.fields.PaymentModel;
 import com.io.proposal.management.domain.entity.fields.RiskCategory;
 import com.io.proposal.management.domain.entity.fields.Status;
-import com.io.proposal.management.domain.internal.ProposalUpdateInternal;
+import com.io.proposal.management.domain.bo.ProposalUpdateBo;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -85,7 +85,7 @@ public class ProposalEntity {
         this.slaHours = dto.slaHours();
     }
 
-    public void updateStatusProposal(ProposalUpdateInternal proposalUpdate) {
+    public void updateStatusProposal(ProposalUpdateBo proposalUpdate) {
         this.analysisDescription = proposalUpdate.getAnalysisDescription();
         this.status = proposalUpdate.getStatus();
     }

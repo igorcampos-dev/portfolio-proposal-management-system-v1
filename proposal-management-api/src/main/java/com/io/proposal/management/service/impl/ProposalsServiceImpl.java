@@ -6,7 +6,7 @@ import com.io.proposal.management.domain.dto.response.ProposalGetByIdResponse;
 import com.io.proposal.management.domain.dto.response.ProposalSaveResponse;
 import com.io.proposal.management.domain.dto.response.ProposalUpdateResponse;
 import com.io.proposal.management.domain.entity.ProposalEntity;
-import com.io.proposal.management.domain.internal.ProposalUpdateInternal;
+import com.io.proposal.management.domain.bo.ProposalUpdateBo;
 import com.io.proposal.management.domain.mapper.ProposalsMapper;
 import com.io.proposal.management.queue.producer.ProposalQueueProducer;
 import com.io.proposal.management.repository.ProposalRepository;
@@ -31,11 +31,11 @@ public class ProposalsServiceImpl implements ProposalsService {
     @Transactional
     public ProposalSaveResponse saveProposal(@Valid ProposalSaveRequest dto) {
         log.info("Preparing to save to the database...");
-        var entity = mapper.toEntity(dto);
-        this.proposalRepository.save(entity);
+        var entity = this.proposalRepository.save(mapper.toEntity(dto));
         log.info("Saved to the database.");
-        this.producer.publishMessage(entity);
-        return mapper.toResponseSave(entity);
+        var bo = mapper.toBo(entity);
+        this.producer.publishMessage(bo);
+        return mapper.toResponseSave(bo);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class ProposalsServiceImpl implements ProposalsService {
     }
 
     @Override
-    public void updateStatusProposal(ProposalUpdateInternal proposalUpdate) {
+    public void updateStatusProposal(ProposalUpdateBo proposalUpdate) {
         log.info("Preparing to update status in the database...");
         ProposalEntity entity = this.proposalRepository.findByIdOrElseThrow(proposalUpdate.getId());
         entity.updateStatusProposal(proposalUpdate);

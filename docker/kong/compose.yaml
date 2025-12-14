@@ -42,6 +42,7 @@ services:
       - project_net
 
   kong-deck:
+    container_name: kong-deck
     depends_on:
       - kong-gateway
     image: kong/deck

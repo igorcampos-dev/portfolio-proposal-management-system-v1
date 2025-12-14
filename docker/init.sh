@@ -30,3 +30,4 @@ sleep 5
 # proposal-user-agent-api
 docker compose -f proposal-user-agent-api/compose.yaml up -d --build
 sleep 10
+

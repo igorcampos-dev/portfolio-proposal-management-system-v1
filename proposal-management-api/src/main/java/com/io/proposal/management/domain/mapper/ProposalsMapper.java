@@ -1,5 +1,6 @@
 package com.io.proposal.management.domain.mapper;
 
+import com.io.proposal.management.domain.bo.ProposalBo;
 import com.io.proposal.management.domain.dto.request.ProposalSaveRequest;
 import com.io.proposal.management.domain.dto.response.*;
 import com.io.proposal.management.domain.entity.ProposalEntity;
@@ -18,12 +19,15 @@ public abstract class ProposalsMapper {
     public abstract ProposalEntity toEntity(ProposalSaveRequest dto);
 
     @Mapping(target = ".", source = ".")
-    public abstract ProposalSaveResponse toResponseSave(ProposalEntity entity);
+    public abstract ProposalSaveResponse toResponseSave(ProposalBo bo);
 
     @Mapping(target = ".", source = ".")
     public abstract ProposalUpdateResponse toResponseUpdate(ProposalEntity entity);
 
     @Mapping(target = ".", source = ".")
     public abstract ProposalGetByIdResponse toResponseGetById(ProposalEntity entity);
+
+    @Mapping(target = ".", source = ".")
+    public abstract ProposalBo toBo(ProposalEntity entity);
 
 }

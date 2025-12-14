@@ -1,6 +1,5 @@
 package com.io.proposal.processor.domain.bo;
 
-import com.io.proposal.processor.domain.dto.ProposalDto;
 import com.io.proposal.processor.domain.fields.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

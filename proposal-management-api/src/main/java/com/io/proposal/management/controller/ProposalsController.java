@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -34,7 +35,7 @@ public class ProposalsController {
             description = "Creates a new service contract proposal.",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    public ResponseEntity<ProposalSaveResponse> saveProposal(
+    public ResponseEntity<@NonNull ProposalSaveResponse> saveProposal(
             @Valid @RequestBody ProposalSaveRequest dto
     ) {
         log.info("Starting proposal creation process...");
@@ -50,7 +51,7 @@ public class ProposalsController {
             description = "Updates the data of a previously registered proposal.",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    public ResponseEntity<ProposalUpdateResponse> updateProposal(
+    public ResponseEntity<@NonNull ProposalUpdateResponse> updateProposal(
             @Valid @RequestBody ProposalUpdateRequest dto
     ) {
         log.info("Starting proposal update process...");
@@ -66,7 +67,7 @@ public class ProposalsController {
             description = "Returns the complete data of a proposal by its identifier.",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    public ResponseEntity<ProposalGetByIdResponse> getProposalById(
+    public ResponseEntity<@NonNull ProposalGetByIdResponse> getProposalById(
             @PathVariable("id") String id
     ) {
         log.info("Starting proposal retrieval process using id: {}", id);
