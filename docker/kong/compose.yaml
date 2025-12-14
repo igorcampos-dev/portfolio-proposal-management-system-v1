@@ -14,7 +14,7 @@ services:
 
   kong-gateway:
     command: /bin/sh -c "kong migrations bootstrap && kong start"
-    image: kong/kong-gateway:3.8.1.0
+    image: kong/kong-gateway:3.12.0.2
     container_name: kong-gateway
     depends_on:
       - kong-database
