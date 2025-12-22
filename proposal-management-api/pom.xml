@@ -21,7 +21,7 @@
 		<fasterxml.jackson.version>2.18.0</fasterxml.jackson.version>
 		<mapstruct.version>1.6.3</mapstruct.version>
         <spring.boot.version>4.0.0</spring.boot.version>
-        <flyway.version>11.19.0</flyway.version>
+        <flyway.version>11.20.0</flyway.version>
         <postgres.version>42.7.8</postgres.version>
         <springdoc.version>3.0.0</springdoc.version>
 	</properties>
