@@ -21,9 +21,8 @@ jobs:
       # ------------------ KEYCLOAK ------------------
 
       - name: Extract Keycloak service names
-        id: keycloak_services
         run: |
-          echo "services<<EOF" >> $GITHUB_OUTPUT
+          echo "keycloak_services<<EOF" >> $GITHUB_OUTPUT
           docker compose -f ./docker/keycloak/compose.yaml config --services >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
@@ -33,14 +32,13 @@ jobs:
       - name: Check Keycloak containers health
         run: |
           ./.github/scripts/check-container-health.sh \
-            "${{ steps.keycloak_services.outputs.services }}"
+            "${{ steps.services.outputs.keycloak_services }}"
 
       # ------------------ KONG ------------------
 
       - name: Extract Kong service names
-        id: kong_services
         run: |
-          echo "services<<EOF" >> $GITHUB_OUTPUT
+          echo "kong_services<<EOF" >> $GITHUB_OUTPUT
           docker compose -f ./docker/kong/compose.yaml config --services >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
@@ -50,14 +48,13 @@ jobs:
       - name: Check Kong containers health
         run: |
           ./.github/scripts/check-container-health.sh \
-            "${{ steps.kong_services.outputs.services }}"
+            "${{ steps.services.outputs.kong_services }}"
 
       # ------------------ RABBITMQ ------------------
 
       - name: Extract RabbitMQ service names
-        id: rabbitmq_services
         run: |
-          echo "services<<EOF" >> $GITHUB_OUTPUT
+          echo "rabbitmq_services<<EOF" >> $GITHUB_OUTPUT
           docker compose -f ./docker/rabbitmq/compose.yaml config --services >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
@@ -67,14 +64,13 @@ jobs:
       - name: Check RabbitMQ containers health
         run: |
           ./.github/scripts/check-container-health.sh \
-            "${{ steps.rabbitmq_services.outputs.services }}"
+            "${{ steps.services.outputs.rabbitmq_services }}"
 
       # ------------------ PROPOSAL MANAGEMENT API ------------------
 
       - name: Extract PMA service names
-        id: pma_services
         run: |
-          echo "services<<EOF" >> $GITHUB_OUTPUT
+          echo "pma_services<<EOF" >> $GITHUB_OUTPUT
           docker compose -f ./proposal-management-api/compose.yaml config --services >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
@@ -84,14 +80,13 @@ jobs:
       - name: Check PMA containers health
         run: |
           ./.github/scripts/check-container-health.sh \
-            "${{ steps.pma_services.outputs.services }}"
+            "${{ steps.services.outputs.pma_services }}"
 
       # ------------------ PROPOSAL PROCESSOR API ------------------
 
       - name: Extract PPA service names
-        id: ppa_services
         run: |
-          echo "services<<EOF" >> $GITHUB_OUTPUT
+          echo "ppa_services<<EOF" >> $GITHUB_OUTPUT
           docker compose -f ./proposal-processor-api/compose.yaml config --services >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
@@ -101,12 +96,11 @@ jobs:
       - name: Check PPA containers health
         run: |
           ./.github/scripts/check-container-health.sh \
-            "${{ steps.ppa_services.outputs.services }}"
+            "${{ steps.services.outputs.ppa_services }}"
 
       # ------------------ PROPOSAL USER AGENT API ------------------
 
       - name: Extract PUAA service names
-        id: puaa_services
         run: |
           echo "services<<EOF" >> $GITHUB_OUTPUT
           docker compose -f ./proposal-user-agent-api/compose.yaml config --services >> $GITHUB_OUTPUT
@@ -118,7 +112,7 @@ jobs:
       - name: Check PUAA containers health
         run: |
           ./.github/scripts/check-container-health.sh \
-            "${{ steps.puaa_services.outputs.services }}"
+            "${{ steps.services.outputs.puaa_services }}"
 
       # ------------------ CLEANUP ------------------
 
