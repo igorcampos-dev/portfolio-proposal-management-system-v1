@@ -3,6 +3,7 @@ name: proposal-management-system-group
 services:
 
   proposal-processor-api:
+    container_name: proposal-processor-api
     build:
       context: .
     ports:
