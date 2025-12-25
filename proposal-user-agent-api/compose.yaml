@@ -3,6 +3,7 @@ name: proposal-management-system-group
 services:
 
   proposal-user-agent-api:
+    container_name: proposal-user-agent-api
     build:
       context: .
     ports:

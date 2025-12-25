@@ -1,0 +1,133 @@
+name: CI – Infra & APIs Health Check
+
+on:
+  pull_request:
+    branches: [ master ]
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v6
+        with:
+          submodules: true
+
+      - name: Create Docker network
+        run: docker network create project_net || true
+
+      # ------------------ KEYCLOAK ------------------
+
+      - name: Extract Keycloak service names
+        id: keycloak_services
+        run: |
+          echo "services<<EOF" >> $GITHUB_OUTPUT
+          docker compose -f ./docker/keycloak/compose.yaml config --services >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Start Keycloak containers
+        run: docker compose -f ./docker/keycloak/compose.yaml up -d --build
+
+      - name: Check Keycloak containers health
+        run: |
+          ./.github/scripts/check-container-health.sh \
+            "${{ steps.keycloak_services.outputs.services }}"
+
+      # ------------------ KONG ------------------
+
+      - name: Extract Kong service names
+        id: kong_services
+        run: |
+          echo "services<<EOF" >> $GITHUB_OUTPUT
+          docker compose -f ./docker/kong/compose.yaml config --services >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Start Kong containers
+        run: docker compose -f ./docker/kong/compose.yaml up -d --build
+
+      - name: Check Kong containers health
+        run: |
+          ./.github/scripts/check-container-health.sh \
+            "${{ steps.kong_services.outputs.services }}"
+
+      # ------------------ RABBITMQ ------------------
+
+      - name: Extract RabbitMQ service names
+        id: rabbitmq_services
+        run: |
+          echo "services<<EOF" >> $GITHUB_OUTPUT
+          docker compose -f ./docker/rabbitmq/compose.yaml config --services >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Start RabbitMQ containers
+        run: docker compose -f ./docker/rabbitmq/compose.yaml up -d --build
+
+      - name: Check RabbitMQ containers health
+        run: |
+          ./.github/scripts/check-container-health.sh \
+            "${{ steps.rabbitmq_services.outputs.services }}"
+
+      # ------------------ PROPOSAL MANAGEMENT API ------------------
+
+      - name: Extract PMA service names
+        id: pma_services
+        run: |
+          echo "services<<EOF" >> $GITHUB_OUTPUT
+          docker compose -f ./proposal-management-api/compose.yaml config --services >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Start PMA containers
+        run: docker compose -f ./proposal-management-api/compose.yaml up -d --build
+
+      - name: Check PMA containers health
+        run: |
+          ./.github/scripts/check-container-health.sh \
+            "${{ steps.pma_services.outputs.services }}"
+
+      # ------------------ PROPOSAL PROCESSOR API ------------------
+
+      - name: Extract PPA service names
+        id: ppa_services
+        run: |
+          echo "services<<EOF" >> $GITHUB_OUTPUT
+          docker compose -f ./proposal-processor-api/compose.yaml config --services >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Start PPA containers
+        run: docker compose -f ./proposal-processor-api/compose.yaml up -d --build
+
+      - name: Check PPA containers health
+        run: |
+          ./.github/scripts/check-container-health.sh \
+            "${{ steps.ppa_services.outputs.services }}"
+
+      # ------------------ PROPOSAL USER AGENT API ------------------
+
+      - name: Extract PUAA service names
+        id: puaa_services
+        run: |
+          echo "services<<EOF" >> $GITHUB_OUTPUT
+          docker compose -f ./proposal-user-agent-api/compose.yaml config --services >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Start PUAA containers
+        run: docker compose -f ./proposal-user-agent-api/compose.yaml up -d --build
+
+      - name: Check PUAA containers health
+        run: |
+          ./.github/scripts/check-container-health.sh \
+            "${{ steps.puaa_services.outputs.services }}"
+
+      # ------------------ CLEANUP ------------------
+
+      - name: Cleanup Docker
+        if: always()
+        run: |
+          docker compose -f ./docker/keycloak/compose.yaml down -v || true
+          docker compose -f ./docker/kong/compose.yaml down -v || true
+          docker compose -f ./docker/rabbitmq/compose.yaml down -v || true
+          docker compose -f ./proposal-management-api/compose.yaml down -v || true
+          docker compose -f ./proposal-processor-api/compose.yaml down -v || true
+          docker compose -f ./proposal-user-agent-api/compose.yaml down -v || true

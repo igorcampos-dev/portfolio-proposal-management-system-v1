@@ -2,7 +2,7 @@ FROM eclipse-temurin:23-jdk-alpine-3.21 as deps
 
 WORKDIR /build
 
-COPY --chmod=0755 .mvn/sh/mvnw mvnw
+COPY --chmod=0755 mvnw mvnw
 COPY .mvn/ .mvn/
 
 RUN --mount=type=bind,source=pom.xml,target=pom.xml \
